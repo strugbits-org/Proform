@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import DashboardUser from "../components/DashboardUser/Index";
 
-export default function App() {
+export default function Dashboard(props) {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([
     {
@@ -88,6 +88,21 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          marginTop: 5,
+        }}
+      >
+        <Text style={{ fontSize: 12 }}>Already have an account ? </Text>
+        <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
+          <Text style={{ color: "#000", fontWeight: "bold", fontSize: 12 }}>
+            Log In
+          </Text>
+        </TouchableOpacity>
+      </View>
       {/* Added this scroll view to enable scrolling when list gets longer than the page */}
       <ScrollView>
         {/* Today's Tasks */}
