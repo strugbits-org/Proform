@@ -23,16 +23,7 @@ export default function index(props) {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100%",
-        padding: 20,
-        backgroundColor: "#ffffff",
-      }}
-    >
+    <View style={styles.mainCOntainer}>
       <Text style={{ color: "#000", fontWeight: "bold", fontSize: 24 }}>
         Create your <Text>FREE</Text> Account
       </Text>
@@ -155,5 +146,16 @@ const styles = StyleSheet.create({
   checkboxCheckBox: {
     marginVertical: 8,
     marginRight: 8,
+  },
+  mainCOntainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    padding: 20,
+    backgroundColor: "#ffffff",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

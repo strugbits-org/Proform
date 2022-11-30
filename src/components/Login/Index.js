@@ -22,9 +22,12 @@ export default function index(props) {
           alignItems: "center",
           justifyContent: "center",
           marginTop: 5,
+          width: "100%",
+          alignContent: "center",
+          textAlign: "center",
         }}
       >
-        <Text style={{ fontSize: 16 }}>New member ? </Text>
+        <Text style={{ fontSize: 16 }}>New member ?</Text>
         <TouchableOpacity onPress={() => props.navigation.navigate("SignUp")}>
           <Text style={{ color: "#3d9be9", fontWeight: "bold", fontSize: 16 }}>
             Create Account

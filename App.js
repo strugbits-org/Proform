@@ -5,6 +5,7 @@ import Login from "./src/components/Login/Index";
 import SignUp from "./src/components/SignUp/Index";
 import ForgotPassword from "./src/components/ForgotPassword/Index";
 import ConfirmationBox from "./src/components/ConfirmationBox/Index";
+import DashboardUser from "./src/screens/Dashboard";
 import { StyleSheet, View, Platform, StatusBar } from "react-native";
 
 const Stack = createNativeStackNavigator();
@@ -14,9 +15,13 @@ export default function App() {
     <View style={styles.container}>
       <View></View>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Login" component={Login} />
+        <Stack.Navigator
+          initialRouteName="DashboardUser"
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Screen name="DashboardUser" component={DashboardUser} />
           <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           <Stack.Screen name="ConfirmationBox" component={ConfirmationBox} />
         </Stack.Navigator>

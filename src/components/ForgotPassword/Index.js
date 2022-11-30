@@ -9,7 +9,7 @@ export default function index(props) {
         Create New Password
       </Text>
       <View style={styles.subHeading}>
-        <Text style={{ fontSize: 12 }}>Please enter your email address</Text>
+        <Text>Please enter your email address</Text>
       </View>
 
       <TextInput
@@ -50,6 +50,9 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 20,
     backgroundColor: "#ffffff",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
   btn: {
     flex: 1,

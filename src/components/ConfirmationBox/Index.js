@@ -5,11 +5,14 @@ import React from "react";
 export default function index(props) {
   return (
     <View style={styles.mainContainer}>
-      <Text style={{ color: "#000", fontWeight: "bold", fontSize: 42 }}>
-        Please Check Your Email
-      </Text>
+      <Text style={styles.mainHeading}>Please Check Your Email</Text>
       <View style={styles.subHeading}>
-        <Text style={{ fontSize: 14 }}>
+        <Text
+          style={{
+            fontSize: 14,
+            alignContent: "center",
+          }}
+        >
           We sent a link to set your new password by email.
         </Text>
       </View>
@@ -47,5 +50,13 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 20,
     backgroundColor: "#ffffff",
+  },
+  mainHeading: {
+    color: "#000",
+    fontWeight: "bold",
+    fontSize: 42,
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
