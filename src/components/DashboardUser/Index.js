@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Icon } from "@rneui/themed";
 
@@ -13,6 +13,9 @@ const DashboardUser = (props) => {
     day,
     webDynamicURL,
   } = props.userInfo;
+
+  const [likeIcon, setLikeIcon] = useState("heart-o");
+  const [like, setLike] = useState(false);
   return (
     <View style={styles.item}>
       <View style={styles.itemLeft}>
@@ -41,12 +44,16 @@ const DashboardUser = (props) => {
         </TouchableOpacity>
       </View>
       <View style={styles.itemRight}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
         //   onPress={() => completeTask(index)}
-        >
-          <Text>Heart Icon</Text>
-          <Icon name="router" />
-        </TouchableOpacity>
+        > */}
+        <Icon
+          name={likeIcon}
+          type="font-awesome"
+          color="#f50"
+          onPress={() => (like ? (likeIcon = "heart") : (likeIcon = "heart-o"))}
+        />
+        {/* </TouchableOpacity> */}
       </View>
     </View>
   );
@@ -97,7 +104,6 @@ const styles = StyleSheet.create({
   },
   itemRight: {
     flex: 0.5,
-    backgroundColor: "#ffff00",
     top: 0,
     alignItems: "center",
     justifyContent: "center",
