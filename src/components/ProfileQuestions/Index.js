@@ -13,14 +13,17 @@ export default function ProfileQuestions(props) {
   const { subHeading, mainHeading, tagLine, type } = props.item;
   return (
     <View style={styles.mainContainer}>
-      <Text>{subHeading}</Text>
-      <Text>{mainHeading}</Text>
-      <Text>{tagLine}</Text>
-      <TextInput
-        style={styles.inputField}
-        onChange={(e) => {
-        }}
-      />
+      <Text style={styles.subHeading}>{subHeading}</Text>
+      <Text style={styles.mainHeading}>{mainHeading}</Text>
+      <Text style={styles.tagLine}>{tagLine}</Text>
+      {/* {if(type === "default"){
+            <TextInput style={styles.inputField} placeholder="Type Here" />
+        }} */}
+      {type === "default" && (
+        <TextInput style={styles.inputField} placeholder="Type Here" />
+      )}
+      {type === "upload" && <Text>File Picker Here</Text>}
+      {/* <TextInput style={styles.inputField} placeholder="Type Here" /> */}
       <TouchableOpacity
         onPress={() => {
           props.setCurrentQuestion(props.currentQuestion + 1);
@@ -40,6 +43,7 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 20,
     backgroundColor: "#ffffff",
+    height: "100%",
   },
   btn: {
     color: "#fff",
@@ -57,5 +61,27 @@ const styles = StyleSheet.create({
     borderBottomColor: "#000",
     width: "80%",
     marginVertical: 20,
+  },
+  subHeading: {
+    color: "#000",
+    fontWeight: "500",
+    fontSize: 24,
+  },
+  tagLine: {
+    fontSize: 14,
+    marginVertical: 15,
+  },
+  mainHeading: {
+    color: "#000",
+    fontWeight: "500",
+    fontSize: 36,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 7,
   },
 });
