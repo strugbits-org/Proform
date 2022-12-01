@@ -2,7 +2,7 @@ import Btn from "../Button/Index";
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-export default function index(props) {
+export default function ConfirmationBox(props) {
   return (
     <View style={styles.mainContainer}>
       <Text style={styles.mainHeading}>Please Check Your Email</Text>

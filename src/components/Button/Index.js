@@ -1,10 +1,11 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import React from "react";
 
-export default function Btn({ bgColor, btnLabel, textColor, Press }) {
+export default function Btn({ bgColor, btnLabel, textColor, Press, disabled }) {
   return (
     <TouchableOpacity
       onPress={Press}
+      disabled={disabled}
       style={{
         backgroundColor: bgColor,
         alignItems: "center",

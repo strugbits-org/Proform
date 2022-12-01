@@ -2,7 +2,7 @@ import Btn from "../Button/Index";
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import React from "react";
 
-export default function index(props) {
+export default function ForgotPassword(props) {
   return (
     <View style={styles.mainContainer}>
       <Text style={{ color: "#000", fontWeight: "bold", fontSize: 36 }}>

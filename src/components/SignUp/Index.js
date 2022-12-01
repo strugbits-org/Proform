@@ -10,7 +10,7 @@ import React, { useState } from "react";
 // import CheckBox from "@react-native-community/checkbox";
 import Checkbox from "expo-checkbox";
 
-export default function index(props) {
+export default function SignUp(props) {
   const [isChecked, setChecked] = useState({
     Performance: false,
     FatLoss: false,
