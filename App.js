@@ -7,7 +7,6 @@ import ForgotPassword from "./src/components/ForgotPassword/Index";
 import ConfirmationBox from "./src/components/ConfirmationBox/Index";
 import CompleteProfile from "./src/components/CompleteProfile/Index";
 import Dashboard from "./src/screens/Dashboard";
-import ReCaptchaTest from "./src/screens/ReCaptchaTest";
 
 import {
   StyleSheet,
@@ -29,7 +28,6 @@ export default function App(props) {
           initialRouteName="Dashboard"
           screenOptions={{ headerShown: false }}
         >
-          <Stack.Screen name="ReCaptchaTest" component={ReCaptchaTest} />
           <Stack.Screen name="Dashboard" component={Dashboard} />
           <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
           <Stack.Screen name="SignUp" component={SignUp} />
