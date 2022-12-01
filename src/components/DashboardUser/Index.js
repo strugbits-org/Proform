@@ -14,6 +14,7 @@ const DashboardUser = (props) => {
     day,
     webDynamicURL,
   } = props.userInfo;
+  const navigation = props.navigation
 
   const [likeIcon, setLikeIcon] = useState("heart-o");
   const [like, setLike] = useState(false);
@@ -64,7 +65,7 @@ const DashboardUser = (props) => {
             }
           }}
         /> */}
-        <LikeModal />
+        <LikeModal navigation={navigation} />
         {/* </TouchableOpacity> */}
       </View>
     </View>

@@ -134,7 +134,6 @@ const styles = StyleSheet.create({
   },
   form: {
     width: "100%",
-
   },
   loginInputField: {
     borderBottomWidth: 1,
