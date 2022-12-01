@@ -41,7 +41,7 @@ const LikeModal = ({ navigation }) => {
               bgColor="#1387DB"
               btnLabel="Create Account"
               btnWidth="90%"
-              Press={() => navigation.navigate("Login")}
+              Press={() => navigation.navigate("SignUp")}
             />
             <Btn
               bgColor="#BFBFBF"

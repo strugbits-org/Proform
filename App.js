@@ -7,7 +7,8 @@ import ForgotPassword from "./src/components/ForgotPassword/Index";
 import ConfirmationBox from "./src/components/ConfirmationBox/Index";
 import CompleteProfile from "./src/components/CompleteProfile/Index";
 import Dashboard from "./src/screens/Dashboard";
-import { Icon } from "@rneui/themed";
+import ReCaptchaTest from "./src/screens/ReCaptchaTest";
+
 import {
   StyleSheet,
   View,
@@ -23,31 +24,12 @@ const Stack = createNativeStackNavigator();
 export default function App(props) {
   return (
     <View style={styles.container}>
-      <View style={styles.mainHeader}>
-        <View>
-          <Icon name="search" type="font-awesome" color="#1387DB" />
-        </View>
-        <View>
-          <Image source={require("./assets/images/logoSmall.jpg")} />
-        </View>
-        <View>
-          <TouchableOpacity
-            onPress={() => {
-              props.navigation.navigate("Login");
-            }}
-          >
-            <Image
-              style={{ width: 30, height: 30 }}
-              source={require("./assets/images/user.png")}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Dashboard"
           screenOptions={{ headerShown: false }}
         >
+          <Stack.Screen name="ReCaptchaTest" component={ReCaptchaTest} />
           <Stack.Screen name="Dashboard" component={Dashboard} />
           <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
           <Stack.Screen name="SignUp" component={SignUp} />

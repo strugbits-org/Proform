@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import DashboardUser from "../components/DashboardUser/Index";
+import Header from "../components/Header/Index";
 
 export default function Dashboard(props) {
   const [task, setTask] = useState();
@@ -88,7 +89,8 @@ export default function Dashboard(props) {
 
   return (
     <View style={styles.container}>
-      <View
+      <Header navigation={props.navigation} />
+      {/* <View
         style={{
           display: "flex",
           flexDirection: "row",
@@ -102,7 +104,7 @@ export default function Dashboard(props) {
             Log In
           </Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       {/* Added this scroll view to enable scrolling when list gets longer than the page */}
       <ScrollView>
         {/* Today's Tasks */}
@@ -113,9 +115,12 @@ export default function Dashboard(props) {
               return (
                 <TouchableOpacity
                   key={index}
-                //   onPress={() => completeTask(index)}
+                  //   onPress={() => completeTask(index)}
                 >
-                  <DashboardUser navigation={props.navigation} userInfo={item} />
+                  <DashboardUser
+                    navigation={props.navigation}
+                    userInfo={item}
+                  />
                 </TouchableOpacity>
               );
             })}
@@ -132,7 +137,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   tasksWrapper: {
-    paddingTop: 40,
+    paddingTop: 0,
   },
   items: {
     marginTop: 30,
