@@ -3,7 +3,7 @@ import { Image, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import { Icon } from "@rneui/themed";
 import Btn from "../Button/Index";
 
-const LikeModal = (props) => {
+const LikeModal = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [likeIcon, setLikeIcon] = useState("heart-o");
   const [like, setLike] = useState(false);
@@ -41,7 +41,7 @@ const LikeModal = (props) => {
               bgColor="#1387DB"
               btnLabel="Create Account"
               btnWidth="90%"
-              Press={() => props.navigation.navigate("Login")}
+              Press={() => navigation.navigate("Login")}
             />
             <Btn
               bgColor="#BFBFBF"

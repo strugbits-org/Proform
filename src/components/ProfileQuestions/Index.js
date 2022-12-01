@@ -10,9 +10,6 @@ import {
 import Btn from "../Button/Index";
 
 export default function ProfileQuestions(props) {
-  console.log("====================================");
-  console.log("Props: ", props);
-  console.log("====================================");
   const { subHeading, mainHeading, tagLine, type } = props.item;
   return (
     <View style={styles.mainContainer}>
@@ -22,9 +19,6 @@ export default function ProfileQuestions(props) {
       <TextInput
         style={styles.inputField}
         onChange={(e) => {
-          console.log("====================================");
-          console.log("e: ", e.target);
-          console.log("====================================");
         }}
       />
       <TouchableOpacity

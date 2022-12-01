@@ -113,9 +113,9 @@ export default function Dashboard(props) {
               return (
                 <TouchableOpacity
                   key={index}
-                  //   onPress={() => completeTask(index)}
+                //   onPress={() => completeTask(index)}
                 >
-                  <DashboardUser userInfo={item} />
+                  <DashboardUser navigation={props.navigation} userInfo={item} />
                 </TouchableOpacity>
               );
             })}

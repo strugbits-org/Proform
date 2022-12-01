@@ -6,7 +6,7 @@ import SignUp from "./src/components/SignUp/Index";
 import ForgotPassword from "./src/components/ForgotPassword/Index";
 import ConfirmationBox from "./src/components/ConfirmationBox/Index";
 import CompleteProfile from "./src/components/CompleteProfile/Index";
-import DashboardUser from "./src/screens/Dashboard";
+import Dashboard from "./src/screens/Dashboard";
 import { Icon } from "@rneui/themed";
 import {
   StyleSheet,
@@ -33,9 +33,6 @@ export default function App(props) {
         <View>
           <TouchableOpacity
             onPress={() => {
-              console.log("====================================");
-              console.log("Click");
-              console.log("====================================");
               props.navigation.navigate("Login");
             }}
           >
@@ -48,10 +45,10 @@ export default function App(props) {
       </View>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="CompleteProfile"
+          initialRouteName="Dashboard"
           screenOptions={{ headerShown: false }}
         >
-          <Stack.Screen name="DashboardUser" component={DashboardUser} />
+          <Stack.Screen name="Dashboard" component={Dashboard} />
           <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Login" component={Login} />
