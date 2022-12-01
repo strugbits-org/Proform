@@ -5,10 +5,33 @@ export const PostLogin = (body) => {
     axios.post("https://www.proformapp.com/_functions/login", body, {
       headers: { 'Content-Type': 'application/json' }
     })
-      .then(() => {
+      .then((res) => {
         let obj = {
           valid: true,
-          msg: "Logged in successfully"
+          msg: res.data.message
+        }
+        resolve(obj);
+      })
+      .catch(error => {
+        let err = error.response.data?.error ? error.response.data.error : false;
+        let obj = {
+          valid: false,
+          error: err
+        }
+        resolve(obj);
+      });
+  })
+}
+
+export const PostSignUp = (body) => {
+  return new Promise((resolve) => {
+    axios.post("https://www.proformapp.com/_functions/register", body, {
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then((res) => {
+        let obj = {
+          valid: true,
+          msg: res.data.message
         }
         resolve(obj);
       })
