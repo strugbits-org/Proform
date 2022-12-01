@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Icon } from "@rneui/themed";
+import LikeModal from "../LikeModal/Index";
 
 const DashboardUser = (props) => {
   const {
@@ -19,10 +20,12 @@ const DashboardUser = (props) => {
   return (
     <View style={styles.item}>
       <View style={styles.itemLeft}>
-        <Image
-          style={styles.img}
-          source={require("../../../assets/images/logoSmall.jpg")}
-        />
+        <View style={styles.imgBox}>
+          <Image
+            style={styles.img}
+            source={require("../../../assets/images/logoSmall.jpg")}
+          />
+        </View>
         {/* <Image source={require(userImage)} /> */}
         <Text style={styles.imageText}>@{userName}</Text>
       </View>
@@ -47,12 +50,21 @@ const DashboardUser = (props) => {
         {/* <TouchableOpacity
         //   onPress={() => completeTask(index)}
         > */}
-        <Icon
+        {/* <Icon
           name={likeIcon}
           type="font-awesome"
           color="#f50"
-          onPress={() => (like ? (likeIcon = "heart") : (likeIcon = "heart-o"))}
-        />
+          onPress={() => {
+            if (like) {
+              setLikeIcon("heart-o");
+              setLike(false);
+            } else {
+              setLike(true);
+              setLikeIcon("heart");
+            }
+          }}
+        /> */}
+        <LikeModal />
         {/* </TouchableOpacity> */}
       </View>
     </View>
@@ -69,10 +81,29 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 20,
     position: "relative",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 7,
   },
   itemLeft: {
     alignItems: "center",
     flex: 1,
+  },
+  imgBox: {
+    borderRadius: 50,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    // shadowOpacity: 1,
+    // shadowRadius: 0,
+    elevation: 7,
   },
   img: {
     width: 70,
@@ -80,9 +111,6 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     borderWidth: 5,
     borderRadius: 50,
-    shadowOffset: { width: -2, height: 4 },
-    shadowColor: "#52006A",
-    elevation: 20,
   },
   itemCenter: {
     // alignItems: "center",
