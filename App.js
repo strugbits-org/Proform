@@ -33,9 +33,6 @@ export default function App(props) {
         <View>
           <TouchableOpacity
             onPress={() => {
-              console.log("====================================");
-              console.log("Click");
-              console.log("====================================");
               props.navigation.navigate("Login");
             }}
           >
@@ -48,7 +45,7 @@ export default function App(props) {
       </View>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="CompleteProfile"
+          initialRouteName="DashboardUser"
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="DashboardUser" component={DashboardUser} />
