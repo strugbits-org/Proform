@@ -13,9 +13,6 @@ import {
   View,
   Platform,
   StatusBar,
-  Text,
-  Image,
-  TouchableOpacity,
 } from "react-native";
 
 const Stack = createNativeStackNavigator();
@@ -25,7 +22,7 @@ export default function App(props) {
     <View style={styles.container}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="CompleteProfile"
+          initialRouteName="Dashboard"
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="Dashboard" component={Dashboard} />

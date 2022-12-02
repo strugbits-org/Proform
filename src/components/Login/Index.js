@@ -23,6 +23,7 @@ export default function Login(props) {
   });
 
   const onSubmit = async (data) => {
+    setResponse((prev) => ({ ...prev, status: 0 }));
     setBtnDisable(() => true);
     let response = await PostLogin(data);
 

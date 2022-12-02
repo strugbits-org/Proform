@@ -1,18 +1,19 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, Linking } from "react-native";
 import { Icon } from "@rneui/themed";
 import LikeModal from "../LikeModal";
 
 const DashboardUser = (props) => {
   const {
     userName,
-    userImage,
+    profilePic,
     taskStatus,
     workoutTitle,
     programName,
     week,
     day,
     webDynamicURL,
+    programDetails
   } = props.userInfo;
   const navigation = props.navigation;
 
@@ -22,13 +23,12 @@ const DashboardUser = (props) => {
     <View style={styles.item}>
       <View style={styles.itemLeft}>
         <View style={styles.imgBox}>
-          <Image style={styles.img} source={{ uri: userImage }} />
+          <Image style={styles.img} source={{ uri: profilePic ? profilePic : "https://www.pngarts.com/files/6/User-Avatar-in-Suit-PNG.png" }} />
         </View>
-        {/* <Image source={require(userImage)} /> */}
-        <Text style={styles.imageText}>@@{userName}</Text>
+        <Text style={styles.imageText}>@{userName}</Text>
       </View>
       <View style={styles.itemCenter}>
-        <Text style={styles.itemText}>{taskStatus}</Text>
+        <Text style={styles.itemText}>completed</Text>
         <Text style={[styles.itemText, styles.workoutTitleText]}>
           {workoutTitle}
         </Text>
@@ -39,7 +39,7 @@ const DashboardUser = (props) => {
         <TouchableOpacity
         //   onPress={() => completeTask(index)}
         >
-          <Text style={[styles.itemText, styles.ViewMoreText]}>
+          <Text onPress={() => Linking.openURL(programDetails.link ? "https://www.proformapp.com/" + programDetails.link : "https://www.proformapp.com/")} style={[styles.itemText, styles.ViewMoreText]}>
             View Workout
           </Text>
         </TouchableOpacity>
@@ -71,21 +71,16 @@ const DashboardUser = (props) => {
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#F5F5F5",
     paddingVertical: 15,
     paddingHorizontal: 30,
+
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 20,
-    position: "relative",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 0,
+
+    shadowColor: "rgba(0,0,0,1)",
     elevation: 7,
   },
   itemLeft: {
@@ -99,19 +94,16 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    // shadowOpacity: 1,
-    // shadowRadius: 0,
     elevation: 7,
   },
   img: {
     width: 70,
     height: 70,
-    borderColor: "#000",
+    borderColor: "#fff",
     borderWidth: 5,
     borderRadius: 50,
   },
   itemCenter: {
-    // alignItems: "center",
     padding: 10,
     flex: 2,
   },

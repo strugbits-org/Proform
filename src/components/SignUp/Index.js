@@ -35,6 +35,7 @@ export default function SignUp(props) {
   };
 
   const onSubmit = async (data) => {
+    setResponse((prev) => ({ ...prev, status: 0 }));
     setBtnDisable(() => true);
 
     let goals = [];
