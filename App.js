@@ -25,7 +25,7 @@ export default function App(props) {
     <View style={styles.container}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Dashboard"
+          initialRouteName="CompleteProfile"
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="Dashboard" component={Dashboard} />

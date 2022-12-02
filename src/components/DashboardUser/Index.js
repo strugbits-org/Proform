@@ -14,7 +14,7 @@ const DashboardUser = (props) => {
     day,
     webDynamicURL,
   } = props.userInfo;
-  const navigation = props.navigation
+  const navigation = props.navigation;
 
   const [likeIcon, setLikeIcon] = useState("heart-o");
   const [like, setLike] = useState(false);
@@ -22,13 +22,10 @@ const DashboardUser = (props) => {
     <View style={styles.item}>
       <View style={styles.itemLeft}>
         <View style={styles.imgBox}>
-          <Image
-            style={styles.img}
-            source={require("../../../assets/images/logoSmall.jpg")}
-          />
+          <Image style={styles.img} source={{ uri: userImage }} />
         </View>
         {/* <Image source={require(userImage)} /> */}
-        <Text style={styles.imageText}>@{userName}</Text>
+        <Text style={styles.imageText}>@@{userName}</Text>
       </View>
       <View style={styles.itemCenter}>
         <Text style={styles.itemText}>{taskStatus}</Text>
