@@ -7,7 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import Btn from "../Button/Index";
+import Btn from "../Button";
 
 export default function ProfileQuestions(props) {
   const { subHeading, mainHeading, tagLine, type } = props.item;

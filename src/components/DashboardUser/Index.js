@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Icon } from "@rneui/themed";
-import LikeModal from "../LikeModal/Index";
+import LikeModal from "../LikeModal";
 
 const DashboardUser = (props) => {
   const {

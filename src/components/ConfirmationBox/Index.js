@@ -1,4 +1,4 @@
-import Btn from "../Button/Index";
+import Btn from "../Button";
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
@@ -20,11 +20,10 @@ export default function ConfirmationBox(props) {
       <Btn
         textColor="white"
         bgColor="#000"
-        marginTop="40"
+        marginTop={40}
         btnLabel="Got It"
         Press={() => props.navigation.navigate("Login")}
       />
-      {/* onPress={() => props.navigation.navigate("Login")} */}
     </View>
   );
 }

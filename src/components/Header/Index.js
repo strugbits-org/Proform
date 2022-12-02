@@ -8,7 +8,7 @@ import {
   Image,
   StatusBar,
 } from "react-native";
-import Btn from "../Button/Index";
+import Btn from "../Button";
 import { useForm, Controller } from "react-hook-form";
 import { PostLogin } from "../../Api/Auth";
 import { Icon } from "@rneui/themed";

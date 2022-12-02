@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Image, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import { Icon } from "@rneui/themed";
-import Btn from "../Button/Index";
+import Btn from "../Button";
 
 const LikeModal = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);

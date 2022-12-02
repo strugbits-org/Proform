@@ -1,13 +1,12 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Login from "./src/components/Login/Index";
-import SignUp from "./src/components/SignUp/Index";
+import Login from "./src/components/Login";
+import SignUp from "./src/components/SignUp";
 import ForgotPassword from "./src/components/ForgotPassword/Index";
-import ConfirmationBox from "./src/components/ConfirmationBox/Index";
-import CompleteProfile from "./src/components/CompleteProfile/Index";
+import ConfirmationBox from "./src/components/ConfirmationBox";
+import CompleteProfile from "./src/components/CompleteProfile";
 import Dashboard from "./src/screens/Dashboard";
-import ReCaptchaTest from "./src/screens/ReCaptchaTest";
 
 import {
   StyleSheet,
@@ -29,7 +28,6 @@ export default function App(props) {
           initialRouteName="Dashboard"
           screenOptions={{ headerShown: false }}
         >
-          <Stack.Screen name="ReCaptchaTest" component={ReCaptchaTest} />
           <Stack.Screen name="Dashboard" component={Dashboard} />
           <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
           <Stack.Screen name="SignUp" component={SignUp} />

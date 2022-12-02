@@ -7,7 +7,7 @@ import {
   TextInput,
   Image,
 } from "react-native";
-import Btn from "../Button/Index";
+import Btn from "../Button";
 import { useForm, Controller } from "react-hook-form";
 import { PostLogin } from "../../Api/Auth";
 
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   forgotPasswordBox: {
     alignItems: "center",
     width: "100%",
-    marginTop: 20,
+    marginVertical: 20,
   },
   forgotPassword: {
     color: "#000",

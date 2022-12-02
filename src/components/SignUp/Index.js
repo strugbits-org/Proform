@@ -5,9 +5,10 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-  ScrollView
+  ScrollView,
+  Image
 } from "react-native";
-import Btn from "../Button/Index";
+import Btn from "../Button";
 import Checkbox from "expo-checkbox";
 import { useForm, Controller } from "react-hook-form";
 import { PostSignUp } from "../../Api/Auth";
@@ -58,13 +59,14 @@ export default function SignUp(props) {
 
   return (
     <View style={styles.mainContainer}>
+      <Image source={require("../../../assets/images/logoSmall.jpg")} />
       <Text style={styles.heading}>
         Create your <Text>FREE</Text> Account
       </Text>
       <View style={styles.headerBox}>
-        <Text style={{ fontSize: 12 }}>Already have an account ? </Text>
+        <Text style={{ fontSize: 14 }}>Already have an account ? </Text>
         <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
-          <Text style={{ color: "#000", fontWeight: "bold", fontSize: 12 }}>
+          <Text style={{ color: "#000", fontWeight: "bold", fontSize: 14 }}>
             Log In
           </Text>
         </TouchableOpacity>
@@ -211,7 +213,8 @@ const styles = StyleSheet.create({
   heading: {
     color: "#000",
     fontWeight: "bold",
-    fontSize: 24
+    fontSize: 24,
+    marginTop: 20
   },
   headerBox: {
     display: "flex",

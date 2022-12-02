@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Text, View, Button } from "react-native";
-import ProfileQuestions from "../ProfileQuestions/Index";
+import ProfileQuestions from "../ProfileQuestions";
 
 function CompleteProfile() {
   const [questions, setQuestion] = useState([

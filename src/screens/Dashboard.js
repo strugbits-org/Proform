@@ -9,7 +9,7 @@ import {
   Keyboard,
   ScrollView,
 } from "react-native";
-import DashboardUser from "../components/DashboardUser/Index";
+import DashboardUser from "../components/DashboardUser";
 import Header from "../components/Header/Index";
 
 export default function Dashboard(props) {
@@ -18,7 +18,7 @@ export default function Dashboard(props) {
     {
       userImage: "https://www.pngarts.com/files/6/User-Avatar-in-Suit-PNG.png",
       userName: "User 1",
-      taskStatus: "Incomplete",
+      taskStatus: "Complete",
       workoutTitle: "SQUAT-PREP",
       programName: "Power Prep",
       week: "3",
