@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./src/components/Login";
 import SignUp from "./src/components/SignUp";
-import ForgotPassword from "./src/components/ForgotPassword/Index";
+import ForgotPassword from "./src/components/ForgotPassword";
 import ConfirmationBox from "./src/components/ConfirmationBox";
 import CompleteProfile from "./src/components/CompleteProfile";
 import Dashboard from "./src/screens/Dashboard";
