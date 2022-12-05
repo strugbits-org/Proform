@@ -33,27 +33,6 @@ export default function NewMemberChecklist(props) {
     },
   });
 
-  const onChangeHandler = (name, value) => {
-    setChecked((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const onSubmit = async (data) => {
-    setResponse((prev) => ({ ...prev, status: 0 }));
-    setBtnDisable(() => true);
-
-    let goals = [];
-    if (
-      isChecked.Performance ||
-      isChecked.FatLoss ||
-      isChecked.TrySomethingNew
-    ) {
-      isChecked.Performance && goals.push("Performance");
-      isChecked.FatLoss && goals.push("Fat-Loss");
-      isChecked.TrySomethingNew && goals.push("Try Something New");
-      data.goals = goals;
-    }
-  };
-
   return (
     <View style={styles.mainContainer}>
       <Image source={require("../../../assets/images/logoSmall.jpg")} />
@@ -65,23 +44,12 @@ export default function NewMemberChecklist(props) {
           style={styles.checkBoxContainer}
           onPress={() => props.navigation.navigate("CompleteProfile")}
         >
-          <Controller
-            control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <View style={styles.agreeCheckBox}>
-                <View style={styles.sectionCheckBox}>
-                  <Checkbox
-                    style={styles.checkboxCheckBox}
-                    value={value}
-                    onBlur={onBlur}
-                    onValueChange={onChange}
-                  />
-                  <Text style={styles.paragraphCheckBox}>Complete Profile</Text>
-                </View>
-              </View>
-            )}
-            name="agree"
-          />
+          <View style={styles.agreeCheckBox}>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox style={styles.checkboxCheckBox} />
+              <Text style={styles.paragraphCheckBox}>Complete Profile</Text>
+            </View>
+          </View>
           {errors.agree && (
             <Text style={styles.errMsg}>{errors.agree.message}</Text>
           )}
@@ -90,24 +58,12 @@ export default function NewMemberChecklist(props) {
           style={styles.checkBoxContainer}
           onPress={() => props.navigation.navigate("AccountSetup")}
         >
-          <Controller
-            control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <View style={styles.agreeCheckBox}>
-                <View style={styles.sectionCheckBox}>
-                  <Checkbox
-                    disable
-                    style={styles.checkboxCheckBox}
-                    value={value}
-                    onBlur={onBlur}
-                    onValueChange={onChange}
-                  />
-                  <Text style={styles.paragraphCheckBox}>Account Setup</Text>
-                </View>
-              </View>
-            )}
-            name="agree"
-          />
+          <View style={styles.agreeCheckBox}>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox style={styles.checkboxCheckBox} />
+              <Text style={styles.paragraphCheckBox}>Account Setup</Text>
+            </View>
+          </View>
           {errors.agree && (
             <Text style={styles.errMsg}>{errors.agree.message}</Text>
           )}
