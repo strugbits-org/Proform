@@ -219,6 +219,14 @@ function AccountSetup() {
       flowText: "",
       type: "deadLift",
     },
+    {
+      subHeading: "Choose a",
+      mainHeading: "PROGRAM",
+      tagLine:
+        "Here's a few we thought would be perfect for you. Choose one of the following programs below to get started:",
+      flowText: "",
+      type: "program",
+    },
   ]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const iptGroup = useRef();

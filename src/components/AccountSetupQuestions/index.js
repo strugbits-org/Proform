@@ -100,6 +100,27 @@ export default function AccountSetupQuestio(props) {
     setChecked((prev) => ({ ...prev, [name]: value }));
   };
 
+  const [programlist, setProgramList] = useState([
+    {
+      bgImg: "../../../assets/images/reconditioning.webp",
+      title: "RECONDITIONING",
+      description:
+        "Whether you are traveling or just letting your body recover, use this program to rehabilitate your muscles and to prepare for the offseason training journey. This program is designed to ease you back into the weight-room after the season's end.",
+      duration: "3 WEEKS",
+      link: "",
+    },
+    {
+      bgImg: "../../../assets/images/formula1.webp",
+      title: "FORMULA-1",
+      description:
+        "This 4 week program covers all of the basics in performance training with limited equipment and resources. It's designed for beginner level athletes looking for something fresh and effective. Choose this program to become better familiar with ProformApp and all of its functions.",
+      duration: "4 WEEKS",
+      link: "",
+    },
+  ]);
+
+  const programItem = ({ item }) => <View></View>;
+
   return (
     <View style={styles.mainContainer}>
       {subHeading && <Text style={styles.subHeading}>{subHeading}</Text>}
@@ -918,6 +939,49 @@ export default function AccountSetupQuestio(props) {
         </View>
       )}
       {type === "deadLift" && (
+        <View
+          style={{
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <View>
+            <Image
+              style={{ width: 100, height: 100, marginTop: 30 }}
+              source={require("../../../assets/images/deadLift.gif")}
+            />
+            <View>
+              <TextInput
+                placeholder="0"
+                keyboardType="number-pad"
+                style={styles.numInputField}
+              />
+            </View>
+            <View>
+              <Text>in Pounds (lbs)</Text>
+            </View>
+          </View>
+          <Text
+            style={{
+              color: "#d1d1d1",
+              textAlign: "center",
+              marginVertical: 20,
+            }}
+          >
+            Unsure? Take your best guess. These weights will automatically
+            adjust for you
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              props.setCurrentQuestion(props.currentQuestion + 1);
+            }}
+            style={styles.btn}
+          >
+            <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      {type === "program" && (
         <View
           style={{
             alignItems: "center",
