@@ -7,13 +7,10 @@ import ForgotPassword from "./src/components/ForgotPassword";
 import ConfirmationBox from "./src/components/ConfirmationBox";
 import CompleteProfile from "./src/components/CompleteProfile";
 import Dashboard from "./src/screens/Dashboard";
+import NewMemberChecklist from "./src/components/NewMemberChecklist";
+import AccountSetup from "./src/components/AccountSetup";
 
-import {
-  StyleSheet,
-  View,
-  Platform,
-  StatusBar,
-} from "react-native";
+import { StyleSheet, View, Platform, StatusBar } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,11 +19,16 @@ export default function App(props) {
     <View style={styles.container}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Dashboard"
+          initialRouteName="NewMemberChecklist"
           screenOptions={{ headerShown: false }}
         >
-          <Stack.Screen name="Dashboard" component={Dashboard} />
+          <Stack.Screen
+            name="NewMemberChecklist"
+            component={NewMemberChecklist}
+          />
+          {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
           <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
+          <Stack.Screen name="AccountSetup" component={AccountSetup} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />

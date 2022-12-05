@@ -11,8 +11,8 @@ import {
   FlatList,
 } from "react-native";
 import DashboardUser from "../components/DashboardUser";
-import Header from "../components/Header/Index";
-import { GetFeeds } from "../Api/Dashboard"
+import Header from "../components/Header";
+import { GetFeeds } from "../Api/Dashboard";
 
 export default function Dashboard(props) {
   const [task, setTask] = useState();
@@ -21,16 +21,13 @@ export default function Dashboard(props) {
   useEffect(() => {
     const getData = async () => {
       let response = await GetFeeds();
-      response.valid && setTaskItems(response.workouts)
-      console.log("Response: ", response);
-    }
-    getData()
-  },[])
+      response.valid && setTaskItems(response.workouts);
+    };
+    getData();
+  }, []);
 
   const renderItem = ({ item }) => (
-    <DashboardUser
-      navigation={props.navigation}
-      userInfo={item} />
+    <DashboardUser navigation={props.navigation} userInfo={item} />
   );
 
   return (
@@ -42,9 +39,8 @@ export default function Dashboard(props) {
           <FlatList
             data={taskItems}
             renderItem={renderItem}
-            keyExtractor={item => item.id}
+            keyExtractor={(item) => item.id}
           />
-
         </View>
       </View>
     </View>
