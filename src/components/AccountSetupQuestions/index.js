@@ -105,7 +105,7 @@ export default function AccountSetupQuestio(props) {
   const [programlist, setProgramList] = useState([
     {
       id: "0",
-      bgImg: "../../../assets/images/reconditioning.webp",
+      bgImg: "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
       title: "RECONDITIONING",
       description:
         "Whether you are traveling or just letting your body recover, use this program to rehabilitate your muscles and to prepare for the offseason training journey. This program is designed to ease you back into the weight-room after the season's end.",
@@ -116,8 +116,11 @@ export default function AccountSetupQuestio(props) {
 
   ]);
 
-  const programItem = ({ item }) => (
-    <View style={{ width: "100%", margin: "auto", marginVertical: 15 }}>
+  const programItem = ({ item }) => {
+    let imgSrc = { uri: item.bgImg };
+
+    console.log("im: ", imgSrc);
+    return <View style={{ width: "100%", margin: "auto", marginVertical: 15 }}>
       {console.log("Img src: ", item.bgImg, item.badge)}
       <ImageBackground
         style={{
@@ -126,8 +129,8 @@ export default function AccountSetupQuestio(props) {
           textAlign: "center",
           opacity: 0.85,
         }}
-        // source={require("../../../assets/images/reconditioning.webp")}
-        source={require("../../../assets/images/reconditioning.webp")}
+        source={imgSrc}
+        // source={{ uri: "../../../assets/images/reconditioning.webp" }}
         resizeMode="cover"
       >
         {/* <Image source={require("../../../assets/images/reconditioning.webp")} /> */}
@@ -140,7 +143,7 @@ export default function AccountSetupQuestio(props) {
         <Text style={styles.programItemDescription}>{item.description}</Text>
       </ImageBackground>
     </View>
-  );
+  }
 
   return (
     <View style={styles.mainContainer}>
