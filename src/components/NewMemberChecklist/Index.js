@@ -39,14 +39,15 @@ export default function NewMemberChecklist(props) {
       <Text style={styles.heading}>NEW MEMBER CHECK LIST</Text>
       <Text>Task to complete for new users!</Text>
 
-      <ScrollView style={styles.form}>
+      <View style={styles.form}>
         <TouchableOpacity
           style={styles.checkBoxContainer}
           onPress={() => props.navigation.navigate("CompleteProfile")}
+          disabled={false}
         >
           <View style={styles.agreeCheckBox}>
             <View style={styles.sectionCheckBox}>
-              <Checkbox style={styles.checkboxCheckBox} />
+              <Checkbox style={styles.checkboxCheckBox} value="" disabled />
               <Text style={styles.paragraphCheckBox}>Complete Profile</Text>
             </View>
           </View>
@@ -57,10 +58,11 @@ export default function NewMemberChecklist(props) {
         <TouchableOpacity
           style={styles.checkBoxContainer}
           onPress={() => props.navigation.navigate("AccountSetup")}
+          disabled={false}
         >
           <View style={styles.agreeCheckBox}>
             <View style={styles.sectionCheckBox}>
-              <Checkbox style={styles.checkboxCheckBox} />
+              <Checkbox style={styles.checkboxCheckBox} value="" disabled />
               <Text style={styles.paragraphCheckBox}>Account Setup</Text>
             </View>
           </View>
@@ -68,6 +70,15 @@ export default function NewMemberChecklist(props) {
             <Text style={styles.errMsg}>{errors.agree.message}</Text>
           )}
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("Dashboard")}
+          disabled={false}
+        >
+          <Text style={{ textDecorationLine: 1, textAlign: "center" }}>
+            Close
+          </Text>
+        </TouchableOpacity>
+
         {/* <View style={styles.btnBox}>
           <Btn
             textColor="white"
@@ -77,7 +88,7 @@ export default function NewMemberChecklist(props) {
             disabled={btnDisable}
           />
         </View> */}
-      </ScrollView>
+      </View>
     </View>
   );
 }
@@ -91,8 +102,6 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "#ffffff",
     textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center",
   },
   heading: {
     color: "#000",
@@ -100,15 +109,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginTop: 20,
   },
-  headerBox: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 5,
-    marginBottom: 20,
-  },
   form: {
-    width: "100%",
+    width: "80%",
   },
   errMsg: {
     color: "red",
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
     marginTop: 7,
   },
   agreeCheckBox: {
-    marginTop: 20,
+    // marginTop: 20,
     width: "100%",
   },
   sectionCheckBox: {
@@ -134,13 +136,23 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   btnBox: {
-    marginTop: 15,
+    // margin: 15,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
   checkBoxContainer: {
-    border: 1,
+    padding: 15,
+    borderWidth: 1,
+    borderColor: "#f0f0f0",
+    backgroundColor: "#f0f0f0",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    elevation: 3,
+    marginVertical: 10,
   },
 });

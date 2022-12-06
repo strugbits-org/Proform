@@ -9,6 +9,8 @@ import {
   ToastAndroid,
   Image,
   Alert,
+  FlatList,
+  ImageBackground,
 } from "react-native";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
@@ -102,24 +104,52 @@ export default function AccountSetupQuestio(props) {
 
   const [programlist, setProgramList] = useState([
     {
+      id: "0",
       bgImg: "../../../assets/images/reconditioning.webp",
       title: "RECONDITIONING",
       description:
         "Whether you are traveling or just letting your body recover, use this program to rehabilitate your muscles and to prepare for the offseason training journey. This program is designed to ease you back into the weight-room after the season's end.",
       duration: "3 WEEKS",
       link: "",
+      badge: "../../../assets/images/coldSign.webp",
     },
     {
+      id: "1",
       bgImg: "../../../assets/images/formula1.webp",
       title: "FORMULA-1",
       description:
         "This 4 week program covers all of the basics in performance training with limited equipment and resources. It's designed for beginner level athletes looking for something fresh and effective. Choose this program to become better familiar with ProformApp and all of its functions.",
       duration: "4 WEEKS",
       link: "",
+      badge: "../../../assets/images/badge.webp",
     },
   ]);
 
-  const programItem = ({ item }) => <View></View>;
+  const programItem = ({ item }) => (
+    <View style={{ width: "100%", margin: "auto", marginVertical: 15 }}>
+      {console.log("Img src: ", item.bgImg, item.badge)}
+      <ImageBackground
+        style={{
+          paddingVertical: 40,
+          paddingHorizontal: 20,
+          textAlign: "center",
+          opacity: 0.85,
+        }}
+        // source={require("../../../assets/images/reconditioning.webp")}
+        source={require("../../../assets/images/reconditioning.webp")}
+        resizeMode="cover"
+      >
+        {/* <Image source={require("../../../assets/images/reconditioning.webp")} /> */}
+        <Image
+          style={styles.badgeImg}
+          source={require("../../../assets/images/coldSign.webp")}
+        />
+        <Text style={styles.programItemHeading}>{item.title}</Text>
+        <Text style={styles.programItemWeeks}>{item.duration}</Text>
+        <Text style={styles.programItemDescription}>{item.description}</Text>
+      </ImageBackground>
+    </View>
+  );
 
   return (
     <View style={styles.mainContainer}>
@@ -988,40 +1018,11 @@ export default function AccountSetupQuestio(props) {
             width: "100%",
           }}
         >
-          <View>
-            <Image
-              style={{ width: 100, height: 100, marginTop: 30 }}
-              source={require("../../../assets/images/deadLift.gif")}
-            />
-            <View>
-              <TextInput
-                placeholder="0"
-                keyboardType="number-pad"
-                style={styles.numInputField}
-              />
-            </View>
-            <View>
-              <Text>in Pounds (lbs)</Text>
-            </View>
-          </View>
-          <Text
-            style={{
-              color: "#d1d1d1",
-              textAlign: "center",
-              marginVertical: 20,
-            }}
-          >
-            Unsure? Take your best guess. These weights will automatically
-            adjust for you
-          </Text>
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
-            <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
-          </TouchableOpacity>
+          <FlatList
+            data={programlist}
+            renderItem={programItem}
+            keyExtractor={(item) => item.id}
+          />
         </View>
       )}
     </View>
@@ -1140,6 +1141,39 @@ const styles = StyleSheet.create({
   },
   checkboxCheckBox: {
     marginVertical: 8,
+  },
+  programItemHeading: {
+    color: "#fff",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 22,
+    marginBottom: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    elevation: 7,
+  },
+  programItemWeeks: {
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 22,
+    marginBottom: 30,
+    fontWeight: "700",
+  },
+  programItemDescription: {
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "500",
+  },
+  badgeImg: {
+    position: "absolute",
+    width: 30,
+    height: 30,
+    right: 20,
+    top: 20,
   },
 });
 
