@@ -19,14 +19,14 @@ export default function App(props) {
     <View style={styles.container}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="NewMemberChecklist"
+          initialRouteName="Dashboard"
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen
             name="NewMemberChecklist"
             component={NewMemberChecklist}
           />
-          {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
+          <Stack.Screen name="Dashboard" component={Dashboard} />
           <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
           <Stack.Screen name="AccountSetup" component={AccountSetup} />
           <Stack.Screen name="SignUp" component={SignUp} />

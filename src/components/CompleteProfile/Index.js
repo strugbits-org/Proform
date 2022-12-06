@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Text, View, Button } from "react-native";
 import ProfileQuestions from "../ProfileQuestions";
 
-function CompleteProfile() {
+function CompleteProfile(props) {
   const [questions, setQuestion] = useState([
     {
       subHeading: "Add Your",
@@ -39,11 +39,12 @@ function CompleteProfile() {
             item={questions[currentQuestion]}
             currentQuestion={currentQuestion}
             setCurrentQuestion={setCurrentQuestion}
+            navigation={props.navigation}
           />
         ) : (
           <View>
             <Text>Complete</Text>
-            {setCurrentQuestion(0)}
+            {/* {setCurrentQuestion(0)} */}
           </View>
         )}
         {/* {item.options.map((option, ind) => {

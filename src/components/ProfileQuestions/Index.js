@@ -85,7 +85,8 @@ export default function ProfileQuestions(props) {
           {image && (
             <TouchableOpacity
               onPress={() => {
-                props.setCurrentQuestion(props.currentQuestion + 1);
+                // props.setCurrentQuestion(props.currentQuestion + 1);
+                props.navigation.navigate("NewMemberChecklist")
               }}
               style={styles.btn}
             >

@@ -30,9 +30,9 @@ const DashboardUser = (props) => {
       <View style={styles.itemCenter}>
         <Text style={styles.itemText}>completed</Text>
         <Text style={[styles.itemText, styles.workoutTitleText]}>
-          {workoutTitle}
+          {programDetails?.workoutTitle}
         </Text>
-        <Text style={styles.itemText}>{programName}</Text>
+        <Text style={styles.itemText}>{programDetails?.progamName}</Text>
         <Text style={styles.itemText}>
           Week {week} / Day {day}
         </Text>
@@ -109,6 +109,8 @@ const styles = StyleSheet.create({
   },
   imageText: {
     marginTop: 5,
+    textAlign: "center",
+    fontSize: 13
   },
   itemText: {
     fontWeight: "bold",

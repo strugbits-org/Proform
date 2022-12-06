@@ -30,7 +30,7 @@ export default function Login(props) {
     if (response.valid) {
       setResponse((prev) => ({ ...prev, status: 1, message: response.msg }));
       setTimeout(() => {
-        props.navigation.navigate("Dashboard")
+        props.navigation.navigate("NewMemberChecklist")
       }, 1500);
     } else {
       setResponse((prev) => ({ ...prev, status: 2, message: response.error }));

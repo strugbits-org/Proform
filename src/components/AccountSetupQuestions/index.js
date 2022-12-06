@@ -113,16 +113,7 @@ export default function AccountSetupQuestio(props) {
       link: "",
       badge: "../../../assets/images/coldSign.webp",
     },
-    {
-      id: "1",
-      bgImg: "../../../assets/images/formula1.webp",
-      title: "FORMULA-1",
-      description:
-        "This 4 week program covers all of the basics in performance training with limited equipment and resources. It's designed for beginner level athletes looking for something fresh and effective. Choose this program to become better familiar with ProformApp and all of its functions.",
-      duration: "4 WEEKS",
-      link: "",
-      badge: "../../../assets/images/badge.webp",
-    },
+
   ]);
 
   const programItem = ({ item }) => (
