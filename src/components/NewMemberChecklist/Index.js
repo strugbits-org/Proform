@@ -58,7 +58,6 @@ export default function NewMemberChecklist(props) {
         <TouchableOpacity
           style={styles.checkBoxContainer}
           onPress={() => props.navigation.navigate("AccountSetup")}
-          disabled={false}
         >
           <View style={styles.agreeCheckBox}>
             <View style={styles.sectionCheckBox}>
@@ -70,15 +69,6 @@ export default function NewMemberChecklist(props) {
             <Text style={styles.errMsg}>{errors.agree.message}</Text>
           )}
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate("Dashboard")}
-          disabled={false}
-        >
-          <Text style={{ textDecorationLine: 1, textAlign: "center" }}>
-            Close
-          </Text>
-        </TouchableOpacity>
-
         {/* <View style={styles.btnBox}>
           <Btn
             textColor="white"
