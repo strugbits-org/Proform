@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, Linking } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Linking,
+} from "react-native";
 import { Icon } from "@rneui/themed";
 import LikeModal from "../LikeModal";
 
@@ -13,9 +20,10 @@ const DashboardUser = (props) => {
     week,
     day,
     webDynamicURL,
-    programDetails
+    programDetails,
   } = props.userInfo;
   const navigation = props.navigation;
+  const likeCount = props.likeCount;
 
   const [likeIcon, setLikeIcon] = useState("heart-o");
   const [like, setLike] = useState(false);
@@ -23,7 +31,14 @@ const DashboardUser = (props) => {
     <View style={styles.item}>
       <View style={styles.itemLeft}>
         <View style={styles.imgBox}>
-          <Image style={styles.img} source={{ uri: profilePic ? profilePic : "https://www.pngarts.com/files/6/User-Avatar-in-Suit-PNG.png" }} />
+          <Image
+            style={styles.img}
+            source={{
+              uri: profilePic
+                ? profilePic
+                : "https://www.pngarts.com/files/6/User-Avatar-in-Suit-PNG.png",
+            }}
+          />
         </View>
         <Text style={styles.imageText}>@{userName}</Text>
       </View>
@@ -39,30 +54,23 @@ const DashboardUser = (props) => {
         <TouchableOpacity
         //   onPress={() => completeTask(index)}
         >
-          <Text onPress={() => Linking.openURL(programDetails.link ? "https://www.proformapp.com/" + programDetails.link : "https://www.proformapp.com/")} style={[styles.itemText, styles.ViewMoreText]}>
+          <Text
+            onPress={() =>
+              Linking.openURL(
+                programDetails.link
+                  ? "https://www.proformapp.com/" + programDetails.link
+                  : "https://www.proformapp.com/"
+              )
+            }
+            style={[styles.itemText, styles.ViewMoreText]}
+          >
             View Workout
           </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.itemRight}>
-        {/* <TouchableOpacity
-        //   onPress={() => completeTask(index)}
-        > */}
-        {/* <Icon
-          name={likeIcon}
-          type="font-awesome"
-          color="#f50"
-          onPress={() => {
-            if (like) {
-              setLikeIcon("heart-o");
-              setLike(false);
-            } else {
-              setLike(true);
-              setLikeIcon("heart");
-            }
-          }}
-        /> */}
         <LikeModal navigation={navigation} />
+        <Text>{likeCount ? likeCount : 0}</Text>
         {/* </TouchableOpacity> */}
       </View>
     </View>
@@ -73,8 +81,7 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: "#F5F5F5",
     paddingVertical: 15,
-    paddingHorizontal: 30,
-
+    paddingHorizontal: 20,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -110,7 +117,7 @@ const styles = StyleSheet.create({
   imageText: {
     marginTop: 5,
     textAlign: "center",
-    fontSize: 13
+    fontSize: 13,
   },
   itemText: {
     fontWeight: "bold",
@@ -127,6 +134,7 @@ const styles = StyleSheet.create({
     top: 0,
     alignItems: "center",
     justifyContent: "center",
+    flexDirection: "row",
   },
 });
 

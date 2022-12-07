@@ -36,17 +36,7 @@ export default function Dashboard(props) {
 
   return (
     <View style={styles.container}>
-      <Header navigation={props.navigation} />
-
-      <View style={styles.tasksWrapper}>
-        <View style={styles.items}>
-          <FlatList
-            data={taskItems}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
-      </View>
+      <Text>PROGRAMS</Text>
     </View>
   );
 }

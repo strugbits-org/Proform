@@ -9,8 +9,10 @@ import CompleteProfile from "./src/components/CompleteProfile";
 import Dashboard from "./src/screens/Dashboard";
 import NewMemberChecklist from "./src/components/NewMemberChecklist";
 import AccountSetup from "./src/components/AccountSetup";
+import Programs from "./src/screens/Programs";
 
-import { StyleSheet, View, Platform, StatusBar } from "react-native";
+import { StyleSheet, View, Platform, StatusBar, Text } from "react-native";
+import OnLoadModal from "./src/components/OnLoadModal";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +21,7 @@ export default function App(props) {
     <View style={styles.container}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Dashboard"
+          initialRouteName="NewMemberChecklist"
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen
@@ -27,6 +29,7 @@ export default function App(props) {
             component={NewMemberChecklist}
           />
           <Stack.Screen name="Dashboard" component={Dashboard} />
+          <Stack.Screen name="Programs" component={Programs} />
           <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
           <Stack.Screen name="AccountSetup" component={AccountSetup} />
           <Stack.Screen name="SignUp" component={SignUp} />

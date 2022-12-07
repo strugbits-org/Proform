@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
-import { Text, View, Button } from "react-native";
+import { Text, View, Button, ScrollView } from "react-native";
 import AccountSetupQuestions from "../AccountSetupQuestions";
 
-function AccountSetup() {
+function AccountSetup(props) {
   const [questions, setQuestion] = useState([
     {
       subHeading: "",
@@ -242,8 +242,10 @@ function AccountSetup() {
         {currentQuestion < questions.length ? (
           <AccountSetupQuestions
             item={questions[currentQuestion]}
+            questions={questions}
             currentQuestion={currentQuestion}
             setCurrentQuestion={setCurrentQuestion}
+            navigation={props.navigation}
           />
         ) : (
           <View>

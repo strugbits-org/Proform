@@ -7,10 +7,12 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
+  ScrollView,
   Image,
   Alert,
   FlatList,
   ImageBackground,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
@@ -18,32 +20,33 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { useForm, Controller } from "react-hook-form";
 import DatePicker from "expo-datepicker";
 import Checkbox from "expo-checkbox";
-import Btn from "../Button";
+import { Icon } from "@rneui/themed";
+import { PostLogin } from "../../Api/Auth";
 
 export default function AccountSetupQuestio(props) {
   const { subHeading, mainHeading, tagLine, flowText, type, upto } = props.item;
   const [image, setImage] = useState(null);
   const [genderOpen, setGenderOpen] = useState(false);
-  const [genderValue, setGenderValue] = useState(null);
+  const [genderValue, setGenderValue] = useState("Select from dropdownn");
   const [gender, setGender] = useState([
-    { label: "Male", value: "male" },
-    { label: "Female", value: "female" },
-    { label: "Prefer Not to Say", value: "neutral" },
+    { label: "Male", value: "Male" },
+    { label: "Female", value: "Female" },
+    { label: "Prefer Not to Say", value: "Prefer Not to Say" },
   ]);
   const [activityLevelOpen, setActivityLevelOpen] = useState(false);
   const [activityLevelValue, setActivityLevelValue] = useState(null);
   const [activityLevel, setActivityLevel] = useState([
-    { label: "Sedentary", value: "sedentary" },
-    { label: "Light", value: "light" },
-    { label: "Moderate", value: "moderate" },
-    { label: "Very Active", value: "veryActive" },
+    { label: "Sedentary", value: "Sedentary" },
+    { label: "Light", value: "Light" },
+    { label: "Moderate", value: "Moderate" },
+    { label: "Very Active", value: "Very Active" },
   ]);
   const [weightGoalOpen, setWeightGoalOpen] = useState(false);
   const [weightGoalValue, setWeightGoalValue] = useState(null);
   const [weightGoal, setWeightGoal] = useState([
-    { label: "Fat Loss", value: "fatLoss" },
-    { label: "Maintain", value: "maintain" },
-    { label: "Gain", value: "gain" },
+    { label: "Fat Loss", value: "Fat Loss" },
+    { label: "Maintain", value: "Maintain" },
+    { label: "Gain", value: "Gain" },
   ]);
   const [timeZoneOpen, setTimeZoneOpen] = useState(false);
   const [timeZoneValue, setTimeZoneValue] = useState(null);
@@ -56,14 +59,14 @@ export default function AccountSetupQuestio(props) {
     { label: "Antarctica/Davis", value: "Antarctica/Davis" },
     { label: "Antarctica/DumontDUrville", value: "Antarctica/DumontDUrville" },
     { label: "Antarctica/Mawson", value: "Antarctica/Mawson" },
-    { label: "Antarctica/Palmer", value: "Antarctica/Casey" },
+    { label: "Antarctica/Palmer", value: "Antarctica/Palmer" },
   ]);
 
   const [weeklyResetOpen, setWeeklyResetOpen] = useState(false);
   const [weeklyResetValue, setWeeklyResetValue] = useState(null);
   const [weeklyReset, setWeeklyReset] = useState([
-    { label: "Sunday", value: "sunday" },
-    { label: "Monday", value: "monday" },
+    { label: "Sunday", value: "Sunday" },
+    { label: "Monday", value: "Monday" },
   ]);
 
   const [conversionTypeOpen, setConversionTypeOpen] = useState(false);
@@ -73,7 +76,7 @@ export default function AccountSetupQuestio(props) {
     { label: "kg", value: "kg" },
   ]);
 
-  const [date, setDate] = useState(new Date().toString());
+  const [date, setDate] = useState();
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -82,12 +85,17 @@ export default function AccountSetupQuestio(props) {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
+      base64: true,
     });
 
     if (!result.canceled) {
+      // console.log("Result: ", result);
       setImage(result.assets[0].uri);
     }
   };
+
+  const [agreeCheck, setAgreeCheck] = useState(false);
+  const [showPrograms, setShowPrograms] = useState(false);
 
   const [isChecked, setChecked] = useState({
     Su: false,
@@ -105,45 +113,178 @@ export default function AccountSetupQuestio(props) {
   const [programlist, setProgramList] = useState([
     {
       id: "0",
-      bgImg: "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      bgImg:
+        "https://static.wixstatic.com/media/11c3fa_97bf3a50fcd149ccbe8d28a01a4bbe01~mv2.jpeg/v1/fill/w_551,h_600,al_c,q_80,enc_auto/11c3fa_97bf3a50fcd149ccbe8d28a01a4bbe01~mv2.jpeg",
       title: "RECONDITIONING",
       description:
         "Whether you are traveling or just letting your body recover, use this program to rehabilitate your muscles and to prepare for the offseason training journey. This program is designed to ease you back into the weight-room after the season's end.",
       duration: "3 WEEKS",
       link: "",
-      badge: "../../../assets/images/coldSign.webp",
+      badge:
+        "https://static.wixstatic.com/media/11c3fa_d418f3d924e341e99d1f162a3c6b8b78~mv2.png/v1/fill/w_52,h_52,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/dollar%20sign%20button.png",
+      viewCount: 216,
+      readerCount: 3448,
+      objectives: [
+        "Muscle-Stimulation",
+        "Technique/Repetition",
+        "Balance-Core/Stability",
+      ],
+      schedule: "3x/Week",
+      nutrition: "Fat-Loss",
+      intensity: "Low-Medium",
+      prerequisites: "",
+      workouts: [
+        {
+          week: 1,
+          day: 1,
+          type: "LOWER BODY",
+          exercise: "Quads, Hamstrings, Glutes",
+          workoutBgImg:
+            "https://static.wixstatic.com/media/11c3fa_07650c42fa6d4f2ea64639e00bbcd808~mv2.jpg/v1/fill/w_640,h_270,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/11c3fa_07650c42fa6d4f2ea64639e00bbcd808~mv2.jpg",
+        },
+        {
+          week: 1,
+          day: 2,
+          type: "UPPER BODY",
+          exercise: "Back, Shoulder, Chest",
+          workoutBgImg:
+            "https://static.wixstatic.com/media/11c3fa_06b47ebb689b4c93a01b9403a7fe5c8e~mv2.jpg/v1/fill/w_640,h_270,al_c,lg_1,q_80,enc_auto/11c3fa_06b47ebb689b4c93a01b9403a7fe5c8e~mv2.jpg",
+        },
+        {
+          week: 1,
+          day: 3,
+          type: "FULL BODY",
+          exercise: "Glutes, Hips, Back",
+          workoutBgImg:
+            "https://static.wixstatic.com/media/11c3fa_b15360d9f4cd4d8d95eacec118972d22~mv2.jpg/v1/fill/w_640,h_270,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/11c3fa_b15360d9f4cd4d8d95eacec118972d22~mv2.jpg",
+        },
+      ],
     },
-
+    {
+      id: "1",
+      bgImg:
+        "https://static.wixstatic.com/media/11c3fa_ac23a9ae4a7543c1abda4e85638bd9d1~mv2.jpeg/v1/fill/w_604,h_702,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/11c3fa_ac23a9ae4a7543c1abda4e85638bd9d1~mv2.jpeg",
+      title: "FORMULA-1",
+      description:
+        "This 4 week program covers all of the basics in performance training with limited equipment and resources. It's designed for beginner level athletes looking for something fresh and effective. Choose this program to become better familiar with ProformApp and all of its functions.",
+      duration: "4 WEEKS",
+      link: "",
+      badge:
+        "https://static.wixstatic.com/media/11c3fa_9fbbcd7b5ac343d0945bbcbfa3eebcdf~mv2.png/v1/fill/w_52,h_52,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/dollar%20sign%20button.png",
+    },
+    {
+      id: "2",
+      bgImg:
+        "https://static.wixstatic.com/media/11c3fa_ddde58f3b02c4abaacdc4e0c1bf65101~mv2.jpeg/v1/fill/w_604,h_658,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/11c3fa_ddde58f3b02c4abaacdc4e0c1bf65101~mv2.jpeg",
+      title: "ALPHA-PUMP",
+      description:
+        "This 3 week workout is an intro program into the fundamentals of hypertrophy. This is a moderately challenging workout program designed to help you increase muscle mass and master isolation exercises in a few short weeks.",
+      duration: "3 WEEKS",
+      link: "",
+      badge:
+        "https://static.wixstatic.com/media/11c3fa_9fbbcd7b5ac343d0945bbcbfa3eebcdf~mv2.png/v1/fill/w_52,h_52,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/dollar%20sign%20button.png",
+    },
   ]);
 
   const programItem = ({ item }) => {
     let imgSrc = { uri: item.bgImg };
+    let badgeSrc = { uri: item.badge };
+    return (
+      <View style={{ width: "100%", margin: "auto", marginVertical: 15 }}>
+        <ImageBackground
+          style={{
+            paddingVertical: 40,
+            paddingHorizontal: 20,
+            textAlign: "center",
+          }}
+          source={imgSrc}
+          // source={{ uri: "../../../assets/images/reconditioning.webp" }}
+          resizeMode="cover"
+        >
+          {/* <Image source={require("../../../assets/images/reconditioning.webp")} /> */}
+          <Image style={styles.badgeImg} source={badgeSrc} />
+          <Text style={styles.programItemHeading}>{item.title}</Text>
+          <Text style={styles.programItemWeeks}>{item.duration}</Text>
+          <Text style={styles.programItemDescription}>{item.description}</Text>
 
-    console.log("im: ", imgSrc);
-    return <View style={{ width: "100%", margin: "auto", marginVertical: 15 }}>
-      {console.log("Img src: ", item.bgImg, item.badge)}
-      <ImageBackground
-        style={{
-          paddingVertical: 40,
-          paddingHorizontal: 20,
-          textAlign: "center",
-          opacity: 0.85,
-        }}
-        source={imgSrc}
-        // source={{ uri: "../../../assets/images/reconditioning.webp" }}
-        resizeMode="cover"
-      >
-        {/* <Image source={require("../../../assets/images/reconditioning.webp")} /> */}
-        <Image
-          style={styles.badgeImg}
-          source={require("../../../assets/images/coldSign.webp")}
-        />
-        <Text style={styles.programItemHeading}>{item.title}</Text>
-        <Text style={styles.programItemWeeks}>{item.duration}</Text>
-        <Text style={styles.programItemDescription}>{item.description}</Text>
-      </ImageBackground>
-    </View>
-  }
+          <TouchableOpacity
+            onPress={() => {
+              console.log("View Program");
+              props.navigation.navigate("Programs");
+            }}
+            style={styles.programItemBtn}
+          >
+            <Text style={{ color: "#000", fontSize: 18, fontWeight: "bold" }}>
+              View Program
+            </Text>
+            <Icon
+              name="th"
+              type="font-awesome"
+              color="#fff"
+              style={{
+                backgroundColor: "#000",
+                padding: 5,
+                borderRadius: 50,
+                width: 25,
+                height: 25,
+                marginLeft: 10,
+              }}
+            />
+          </TouchableOpacity>
+        </ImageBackground>
+      </View>
+    );
+  };
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const [multiCheckErro, setMultiCheckErro] = useState(false);
+
+  const checkBoxHnadler = () => {
+    if (
+      isChecked.Su ||
+      isChecked.Mo ||
+      isChecked.Tu ||
+      isChecked.We ||
+      isChecked.Th ||
+      isChecked.Fr ||
+      isChecked.Sa
+    ) {
+      onSubmit(onSubmit);
+    } else {
+      setMultiCheckErro(true);
+    }
+  };
+  const onSubmit = async (data) => {
+    console.log(
+      "Inside onSubmit ",
+      props.currentQuestion + 1,
+      props.questions.length
+    );
+
+    if (props.currentQuestion + 1 === props.questions.length) {
+      props.navigation.navigate("NewMemberChecklist");
+    } else {
+      props.setCurrentQuestion(props.currentQuestion + 1);
+    }
+    // setResponse((prev) => ({ ...prev, status: 0 }));
+    // setBtnDisable(() => true);
+    // let response = await PostLogin(data);
+
+    // if (response.valid) {
+    //   setResponse((prev) => ({ ...prev, status: 1, message: response.msg }));
+    //   setTimeout(() => {
+    //     props.navigation.navigate("NewMemberChecklist")
+    //   }, 1500);
+    // } else {
+    //   setResponse((prev) => ({ ...prev, status: 2, message: response.error }));
+    //   setBtnDisable(() => false);
+    // }
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -152,9 +293,6 @@ export default function AccountSetupQuestio(props) {
       {tagLine && <Text style={styles.tagLine}>{tagLine}</Text>}
       {flowText && <Text style={styles.flowText}>{flowText}</Text>}
 
-      {/* {if(type === "default"){
-            <TextInput style={styles.inputField} placeholder="Type Here" />
-        }} */}
       {type === "beginBtn" && (
         <View
           style={{
@@ -201,27 +339,35 @@ export default function AccountSetupQuestio(props) {
           }}
         >
           <View style={styles.dropdownGender}>
-            <DropDownPicker
-              style={styles.dropdown}
-              open={genderOpen}
-              value={genderValue} //genderValue
-              items={gender}
-              setOpen={setGenderOpen}
-              setValue={setGenderValue}
-              setItems={setGender}
-              placeholder="Select from dropdownn"
-              zIndex={3000}
-              zIndexInverse={1000}
+            <Controller
+              control={control}
+              rules={{
+                required: { value: true, message: "Gender is required" },
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <DropDownPicker
+                  style={styles.dropdown}
+                  open={genderOpen}
+                  onBlur={onBlur}
+                  value={value}
+                  items={gender}
+                  setOpen={setGenderOpen}
+                  setValue={setGenderValue}
+                  setItems={setGender}
+                  placeholder={genderValue}
+                  onSelectItem={onChange}
+                />
+              )}
+              name="genderInput"
             />
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.genderInput && (
+            <Text style={styles.errMsg}>{errors.genderInput.message}</Text>
+          )}
         </View>
       )}
       {type === "dob" && (
@@ -231,15 +377,28 @@ export default function AccountSetupQuestio(props) {
             width: "100%",
           }}
         >
-          <DatePicker date={date} onChange={(date) => setDate(date)} />
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
+          <Controller
+            control={control}
+            rules={{
+              required: { value: true, message: "Date Of Birth is required" },
             }}
-            style={styles.btn}
-          >
+            render={({ field: { onChange, onBlur, value } }) => (
+              <DatePicker
+                date={date}
+                onBlur={onBlur}
+                value={value}
+                onChange={onChange}
+              />
+            )}
+            name="dobInput"
+          />
+
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.dobInput && (
+            <Text style={styles.errMsg}>{errors.dobInput.message}</Text>
+          )}
         </View>
       )}
       {type === "activityLevel" && (
@@ -250,27 +409,38 @@ export default function AccountSetupQuestio(props) {
           }}
         >
           <View style={styles.dropdownGender}>
-            <DropDownPicker
-              style={styles.dropdown}
-              open={activityLevelOpen}
-              value={activityLevelValue} //genderValue
-              items={activityLevel}
-              setOpen={setActivityLevelOpen}
-              setValue={setActivityLevelValue}
-              setItems={setActivityLevel}
-              placeholder="Select from dropdownn"
-              zIndex={3000}
-              zIndexInverse={1000}
+            <Controller
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: "Acitvity Level is required",
+                },
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <DropDownPicker
+                  style={styles.dropdown}
+                  onBlur={onBlur}
+                  value={value}
+                  onSelectItem={onChange}
+                  open={activityLevelOpen}
+                  items={activityLevel}
+                  setOpen={setActivityLevelOpen}
+                  setValue={setActivityLevelValue}
+                  setItems={setActivityLevel}
+                  placeholder={activityLevelValue}
+                />
+              )}
+              name="activityInput"
             />
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.activityInput && (
+            <Text style={styles.errMsg}>{errors.activityInput.message}</Text>
+          )}
         </View>
       )}
       {type === "weightGoals" && (
@@ -281,27 +451,38 @@ export default function AccountSetupQuestio(props) {
           }}
         >
           <View style={styles.dropdownGender}>
-            <DropDownPicker
-              style={styles.dropdown}
-              open={weightGoalOpen}
-              value={weightGoalValue} //genderValue
-              items={weightGoal}
-              setOpen={setWeightGoalOpen}
-              setValue={setWeightGoalValue}
-              setItems={setWeightGoal}
-              placeholder="Select from dropdownn"
-              zIndex={3000}
-              zIndexInverse={1000}
+            <Controller
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: "Acitvity Level is required",
+                },
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <DropDownPicker
+                  style={styles.dropdown}
+                  onBlur={onBlur}
+                  value={value}
+                  onSelectItem={onChange}
+                  open={weightGoalOpen}
+                  items={weightGoal}
+                  setOpen={setWeightGoalOpen}
+                  setValue={setWeightGoalValue}
+                  setItems={setWeightGoal}
+                  placeholder={weightGoalValue}
+                />
+              )}
+              name="weightInput"
             />
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.weightInput && (
+            <Text style={styles.errMsg}>{errors.weightInput.message}</Text>
+          )}
         </View>
       )}
       {type === "timeZone" && (
@@ -312,27 +493,38 @@ export default function AccountSetupQuestio(props) {
           }}
         >
           <View style={styles.dropdownGender}>
-            <DropDownPicker
-              style={styles.dropdown}
-              open={timeZoneOpen}
-              value={timeZoneValue} //genderValue
-              items={timeZone}
-              setOpen={setTimeZoneOpen}
-              setValue={setTimeZoneValue}
-              setItems={setTimeZone}
-              placeholder="Select from dropdownn"
-              zIndex={3000}
-              zIndexInverse={1000}
+            <Controller
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: "Time Zone is required",
+                },
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <DropDownPicker
+                  style={styles.dropdown}
+                  onBlur={onBlur}
+                  value={value}
+                  onSelectItem={onChange}
+                  open={timeZoneOpen}
+                  items={timeZone}
+                  setOpen={setTimeZoneOpen}
+                  setValue={setTimeZoneValue}
+                  setItems={setTimeZone}
+                  placeholder={timeZoneValue}
+                />
+              )}
+              name="timZoneInput"
             />
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.timZoneInput && (
+            <Text style={styles.errMsg}>{errors.timZoneInput.message}</Text>
+          )}
         </View>
       )}
       {type === "weeklyReset" && (
@@ -343,27 +535,38 @@ export default function AccountSetupQuestio(props) {
           }}
         >
           <View style={styles.dropdownGender}>
-            <DropDownPicker
-              style={styles.dropdown}
-              open={weeklyResetOpen}
-              value={weeklyResetValue} //genderValue
-              items={weeklyReset}
-              setOpen={setWeeklyResetOpen}
-              setValue={setWeeklyResetValue}
-              setItems={setWeeklyReset}
-              placeholder="Select from dropdownn"
-              zIndex={3000}
-              zIndexInverse={1000}
+            <Controller
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: "Weekly Reset is required",
+                },
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <DropDownPicker
+                  style={styles.dropdown}
+                  onBlur={onBlur}
+                  value={value}
+                  onSelectItem={onChange}
+                  open={weeklyResetOpen}
+                  items={weeklyReset}
+                  setOpen={setWeeklyResetOpen}
+                  setValue={setWeeklyResetValue}
+                  setItems={setWeeklyReset}
+                  placeholder={weeklyResetValue}
+                />
+              )}
+              name="weeklyResetInput"
             />
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.weeklyResetInput && (
+            <Text style={styles.errMsg}>{errors.weeklyResetInput.message}</Text>
+          )}
         </View>
       )}
       {type === "conversionType" && (
@@ -374,27 +577,40 @@ export default function AccountSetupQuestio(props) {
           }}
         >
           <View style={styles.dropdownGender}>
-            <DropDownPicker
-              style={styles.dropdown}
-              open={conversionTypeOpen}
-              value={conversionTypeValue} //genderValue
-              items={conversionType}
-              setOpen={setConversionTypeOpen}
-              setValue={setConversionTypeValue}
-              setItems={setConversionType}
-              placeholder="Select from dropdownn"
-              zIndex={3000}
-              zIndexInverse={1000}
+            <Controller
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: "Conversion Type is required",
+                },
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <DropDownPicker
+                  style={styles.dropdown}
+                  onBlur={onBlur}
+                  value={value}
+                  onSelectItem={onChange}
+                  open={conversionTypeOpen}
+                  items={conversionType}
+                  setOpen={setConversionTypeOpen}
+                  setValue={setConversionTypeValue}
+                  setItems={setConversionType}
+                  placeholder={conversionTypeValue}
+                />
+              )}
+              name="conversionTypeInput"
             />
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.conversionTypeInput && (
+            <Text style={styles.errMsg}>
+              {errors.conversionTypeInput.message}
+            </Text>
+          )}
         </View>
       )}
       {type === "customize" && (
@@ -431,22 +647,34 @@ export default function AccountSetupQuestio(props) {
             width: "100%",
           }}
         >
-          <View style={styles.agreeCheckBox}>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox style={styles.checkboxCheckBox} />
-              <Text style={styles.paragraphCheckBox}>
-                I agree to the site terms & conditions
-              </Text>
-            </View>
-          </View>
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
+          <Controller
+            control={control}
+            rules={{
+              required: { value: true, message: "Please tick the box above" },
             }}
-            style={styles.btn}
-          >
+            render={({ field: { onChange, onBlur, value } }) => (
+              <View style={styles.agreeCheckBox}>
+                <View style={styles.sectionCheckBox}>
+                  <Checkbox
+                    style={styles.checkboxCheckBox}
+                    value={value}
+                    onBlur={onBlur}
+                    onValueChange={onChange}
+                  />
+                  <Text style={styles.paragraphCheckBox}>
+                    I agree to the site terms & conditions
+                  </Text>
+                </View>
+              </View>
+            )}
+            name="autoAdjustCheck"
+          />
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.autoAdjustCheck && (
+            <Text style={styles.errMsg}>{errors.autoAdjustCheck.message}</Text>
+          )}
         </View>
       )}
       {type === "mesurable" && (
@@ -482,10 +710,25 @@ export default function AccountSetupQuestio(props) {
         >
           <View style={styles.numberBox}>
             <View>
-              <TextInput
-                placeholder="0"
-                keyboardType="number-pad"
-                style={styles.numInputField}
+              <Controller
+                control={control}
+                rules={{
+                  required: {
+                    value: true,
+                    message: "Current Weight is required",
+                  },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    value={value}
+                    onBlur={onBlur}
+                    placeholder="0"
+                    keyboardType="number-pad"
+                    style={styles.numInputField}
+                  />
+                )}
+                name="currentWeightInput"
               />
             </View>
             <View>
@@ -493,14 +736,14 @@ export default function AccountSetupQuestio(props) {
             </View>
           </View>
 
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.currentWeightInput && (
+            <Text style={styles.errMsg}>
+              {errors.currentWeightInput.message}
+            </Text>
+          )}
         </View>
       )}
       {type === "goalWeight" && (
@@ -512,10 +755,25 @@ export default function AccountSetupQuestio(props) {
         >
           <View style={styles.numberBox}>
             <View>
-              <TextInput
-                placeholder="0"
-                keyboardType="number-pad"
-                style={styles.numInputField}
+              <Controller
+                control={control}
+                rules={{
+                  required: {
+                    value: true,
+                    message: "Goal Weight is required",
+                  },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    value={value}
+                    onBlur={onBlur}
+                    placeholder="0"
+                    keyboardType="number-pad"
+                    style={styles.numInputField}
+                  />
+                )}
+                name="goalWeightInput"
               />
             </View>
             <View>
@@ -523,14 +781,12 @@ export default function AccountSetupQuestio(props) {
             </View>
           </View>
 
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.goalWeightInput && (
+            <Text style={styles.errMsg}>{errors.goalWeightInput.message}</Text>
+          )}
         </View>
       )}
       {type === "bodyFat" && (
@@ -542,10 +798,25 @@ export default function AccountSetupQuestio(props) {
         >
           <View style={styles.numberBox}>
             <View>
-              <TextInput
-                placeholder="0"
-                keyboardType="number-pad"
-                style={styles.numInputField}
+              <Controller
+                control={control}
+                rules={{
+                  required: {
+                    value: true,
+                    message: "Body Fat is required",
+                  },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    value={value}
+                    onBlur={onBlur}
+                    placeholder="0"
+                    keyboardType="number-pad"
+                    style={styles.numInputField}
+                  />
+                )}
+                name="bodyFatInput"
               />
             </View>
             <View>
@@ -553,14 +824,12 @@ export default function AccountSetupQuestio(props) {
             </View>
           </View>
 
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.bodyFatInput && (
+            <Text style={styles.errMsg}>{errors.bodyFatInput.message}</Text>
+          )}
         </View>
       )}
       {type === "calorieGoal" && (
@@ -572,10 +841,25 @@ export default function AccountSetupQuestio(props) {
         >
           <View>
             <View>
-              <TextInput
-                placeholder="0"
-                keyboardType="number-pad"
-                style={styles.numInputField}
+              <Controller
+                control={control}
+                rules={{
+                  required: {
+                    value: true,
+                    message: "Calorie Goal is required",
+                  },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    value={value}
+                    onBlur={onBlur}
+                    placeholder="0"
+                    keyboardType="number-pad"
+                    style={styles.numInputField}
+                  />
+                )}
+                name="calorieInput"
               />
             </View>
             <View>
@@ -583,14 +867,12 @@ export default function AccountSetupQuestio(props) {
             </View>
           </View>
 
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.calorieInput && (
+            <Text style={styles.errMsg}>{errors.calorieInput.message}</Text>
+          )}
         </View>
       )}
       {type === "height" && (
@@ -603,10 +885,25 @@ export default function AccountSetupQuestio(props) {
           <View style={styles.numberBox}>
             <View style={styles.heightBox}>
               <View>
-                <TextInput
-                  placeholder="0"
-                  keyboardType="number-pad"
-                  style={styles.numInputField}
+                <Controller
+                  control={control}
+                  rules={{
+                    required: {
+                      value: true,
+                      message: "Height is required",
+                    },
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                      onChangeText={onChange}
+                      value={value}
+                      onBlur={onBlur}
+                      placeholder="0"
+                      keyboardType="number-pad"
+                      style={styles.numInputField}
+                    />
+                  )}
+                  name="heightInput"
                 />
               </View>
               <View>
@@ -627,32 +924,12 @@ export default function AccountSetupQuestio(props) {
             </View>
           </View>
 
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
-        </View>
-      )}
-      {type === "default" && (
-        <View
-          style={{
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          <TextInput style={styles.inputField} placeholder="Type Here" />
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
-            <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
-          </TouchableOpacity>
+          {errors.heightInput && (
+            <Text style={styles.errMsg}>{errors.heightInput.message}</Text>
+          )}
         </View>
       )}
       {type === "upload" && (
@@ -779,14 +1056,12 @@ export default function AccountSetupQuestio(props) {
             </View>
           </View>
 
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+          <TouchableOpacity onPress={checkBoxHnadler} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {multiCheckErro && (
+            <Text style={styles.errMsg}>Please Select atleast one day.</Text>
+          )}
         </View>
       )}
       {type === "setWeights" && (
@@ -1006,18 +1281,20 @@ export default function AccountSetupQuestio(props) {
         </View>
       )}
       {type === "program" && (
-        <View
-          style={{
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          <FlatList
-            data={programlist}
-            renderItem={programItem}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
+        <ScrollView>
+          <View
+            style={{
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <FlatList
+              data={programlist}
+              renderItem={programItem}
+              keyExtractor={(item) => item.id}
+            />
+          </View>
+        </ScrollView>
       )}
     </View>
   );
@@ -1116,6 +1393,7 @@ const styles = StyleSheet.create({
   dropdown: {
     borderColor: "#B7B7B7",
     height: 50,
+    borderRadius: 0,
   },
   containerCheckBox: {
     flexDirection: "row",
@@ -1159,8 +1437,8 @@ const styles = StyleSheet.create({
   programItemDescription: {
     color: "#fff",
     textAlign: "center",
-    fontSize: 18,
-    fontWeight: "500",
+    fontSize: 16,
+    fontWeight: "400",
   },
   badgeImg: {
     position: "absolute",
@@ -1168,6 +1446,20 @@ const styles = StyleSheet.create({
     height: 30,
     right: 20,
     top: 20,
+  },
+  programItemBtn: {
+    color: "#000",
+    backgroundColor: "#fff",
+    alignItems: "center",
+    textAlign: "center",
+    paddingVertical: 8,
+    marginVertical: 20,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  errMsg: {
+    color: "red",
+    marginTop: 7,
   },
 });
 

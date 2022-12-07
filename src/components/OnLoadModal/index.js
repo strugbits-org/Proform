@@ -3,7 +3,7 @@ import { Image, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import { Icon } from "@rneui/themed";
 import Btn from "../Button";
 
-const LikeModal = ({ navigation }) => {
+const OnLoadModal = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [likeIcon, setLikeIcon] = useState("heart-o");
   const [like, setLike] = useState(false);
@@ -29,7 +29,7 @@ const LikeModal = ({ navigation }) => {
             </View>
             <Image
               style={styles.gifImage}
-              source={require("../../../assets/images/like.gif")}
+              source={require("../../../assets/images/weightLifting.gif")}
             />
             <Text style={styles.modalText}>
               Sign up for FREE to start following, tracking and completing
@@ -57,11 +57,11 @@ const LikeModal = ({ navigation }) => {
         // style={[styles.button, styles.buttonOpen]}
         onPress={() => {
           if (like) {
-            // setLikeIcon("heart-o");
+            setLikeIcon("heart-o");
             setLike(false);
           } else {
             setLike(true);
-            // setLikeIcon("heart");
+            setLikeIcon("heart");
             setModalVisible(true);
           }
         }}
@@ -124,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LikeModal;
+export default OnLoadModal;

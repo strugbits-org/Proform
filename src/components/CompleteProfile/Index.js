@@ -8,13 +8,13 @@ function CompleteProfile(props) {
       subHeading: "Add Your",
       mainHeading: "Full Name",
       tagLine: "How should we identify you?",
-      type: "default",
+      type: "fullName",
     },
     {
       subHeading: "Pick Your",
       mainHeading: "Username",
       tagLine: "How other members will find you?",
-      type: "default",
+      type: "userName",
     },
     {
       subHeading: "Select Your",
@@ -37,6 +37,7 @@ function CompleteProfile(props) {
         {currentQuestion < questions.length ? (
           <ProfileQuestions
             item={questions[currentQuestion]}
+            questions={questions}
             currentQuestion={currentQuestion}
             setCurrentQuestion={setCurrentQuestion}
             navigation={props.navigation}

@@ -13,10 +13,45 @@ import {
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
 import Btn from "../Button";
+import { useForm, Controller } from "react-hook-form";
+import { PostLogin } from "../../Api/Auth";
 
 export default function ProfileQuestions(props) {
   const { subHeading, mainHeading, tagLine, type } = props.item;
   const [image, setImage] = useState(null);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    console.log(
+      "Inside onSubmit ",
+      props.currentQuestion + 1,
+      props.questions.length
+    );
+
+    if (props.currentQuestion + 1 === props.questions.length) {
+      props.navigation.navigate("NewMemberChecklist");
+    } else {
+      props.setCurrentQuestion(props.currentQuestion + 1);
+    }
+    // setResponse((prev) => ({ ...prev, status: 0 }));
+    // setBtnDisable(() => true);
+    // let response = await PostLogin(data);
+
+    // if (response.valid) {
+    //   setResponse((prev) => ({ ...prev, status: 1, message: response.msg }));
+    //   setTimeout(() => {
+    //     props.navigation.navigate("NewMemberChecklist")
+    //   }, 1500);
+    // } else {
+    //   setResponse((prev) => ({ ...prev, status: 2, message: response.error }));
+    //   setBtnDisable(() => false);
+    // }
+  };
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -40,22 +75,74 @@ export default function ProfileQuestions(props) {
       {/* {if(type === "default"){
             <TextInput style={styles.inputField} placeholder="Type Here" />
         }} */}
-      {type === "default" && (
+      {type === "fullName" && (
         <View
           style={{
             alignItems: "center",
             width: "100%",
           }}
         >
-          <TextInput style={styles.inputField} placeholder="Type Here" />
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
+          <Controller
+            control={control}
+            rules={{
+              required: { value: true, message: "Full Name is required" },
             }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                onChangeText={onChange}
+                value={value}
+                onBlur={onBlur}
+                style={styles.inputField}
+                placeholder="Type Here"
+              />
+            )}
+            name="fullNameInput"
+          />
+
+          <TouchableOpacity
+            // onPress={() => {
+            //   props.setCurrentQuestion(props.currentQuestion + 1);
+            // }}
+            onPress={handleSubmit(onSubmit)}
             style={styles.btn}
           >
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.fullNameInput && (
+            <Text style={styles.errMsg}>{errors.fullNameInput.message}</Text>
+          )}
+        </View>
+      )}
+      {type === "userName" && (
+        <View
+          style={{
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <Controller
+            control={control}
+            rules={{
+              required: { value: true, message: "Username is required" },
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                onChangeText={onChange}
+                value={value}
+                onBlur={onBlur}
+                style={styles.inputField}
+                placeholder="Type Here"
+              />
+            )}
+            name="userName"
+          />
+
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
+            <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
+          </TouchableOpacity>
+          {errors.userName && (
+            <Text style={styles.errMsg}>{errors.userName.message}</Text>
+          )}
         </View>
       )}
       {type === "upload" && (
@@ -84,10 +171,11 @@ export default function ProfileQuestions(props) {
           </TouchableOpacity>
           {image && (
             <TouchableOpacity
-              onPress={() => {
-                // props.setCurrentQuestion(props.currentQuestion + 1);
-                props.navigation.navigate("NewMemberChecklist")
-              }}
+              // onPress={() => {
+              //   // props.setCurrentQuestion(props.currentQuestion + 1);
+              //   props.navigation.navigate("NewMemberChecklist");
+              // }}
+              onPress={onSubmit}
               style={styles.btn}
             >
               <Text style={{ color: "#fff", fontSize: 16 }}>Finish</Text>
@@ -157,5 +245,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 0,
     elevation: 7,
+  },
+  errMsg: {
+    color: "red",
+    marginTop: 7,
   },
 });
