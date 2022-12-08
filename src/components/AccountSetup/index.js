@@ -5,6 +5,15 @@ import AccountSetupQuestions from "../AccountSetupQuestions";
 function AccountSetup(props) {
   const [questions, setQuestion] = useState([
     {
+      subHeading: "Customize",
+      mainHeading: "TRAINING DAYS",
+      tagLine:
+        "Choose up to four (4) core-workout training days. Typically these are spaced one day apart to allow for rest and recovery.",
+      flowText: "",
+      upto: 4,
+      type: "trainingDays",
+    },
+    {
       subHeading: "",
       mainHeading: "Account Setup",
       tagLine:
@@ -164,7 +173,7 @@ function AccountSetup(props) {
         "Choose up to seven (7) supplemental workout days. These may be completed before/after core-training or on cardio days.",
       flowText: "",
       upto: 7,
-      type: "supplementDays",
+      type: "trainingDays",
     },
     {
       subHeading: "Customize",
@@ -174,7 +183,7 @@ function AccountSetup(props) {
       flowText: "",
       minDays: 1,
       upto: 5,
-      type: "cardioDays",
+      type: "trainingDays",
     },
     {
       subHeading: "",

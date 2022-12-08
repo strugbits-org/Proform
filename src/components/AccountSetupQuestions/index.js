@@ -105,9 +105,14 @@ export default function AccountSetupQuestio(props) {
     Th: false,
     Fr: false,
     Sa: false,
+    total: 0,
   });
   const onChangeHandler = (name, value) => {
-    setChecked((prev) => ({ ...prev, [name]: value }));
+    if (value) {
+      setChecked((prev) => ({ ...prev, [name]: value, total: isChecked.total + 1 }));
+    } else {
+      setChecked((prev) => ({ ...prev, [name]: value, total: isChecked.total - 1 }));
+    }
   };
 
   const [programlist, setProgramList] = useState([
@@ -242,9 +247,9 @@ export default function AccountSetupQuestio(props) {
     formState: { errors },
   } = useForm();
 
-  const [multiCheckErro, setMultiCheckErro] = useState(false);
+  const [multiCheckError, setMultiCheckError] = useState(false);
 
-  const checkBoxHnadler = () => {
+  const checkBoxHandler = (type) => {
     if (
       isChecked.Su ||
       isChecked.Mo ||
@@ -254,12 +259,14 @@ export default function AccountSetupQuestio(props) {
       isChecked.Fr ||
       isChecked.Sa
     ) {
-      onSubmit(onSubmit);
+      onSubmit(type);
     } else {
-      setMultiCheckErro(true);
+      setMultiCheckError(true);
     }
   };
   const onSubmit = async (data) => {
+    console.log("Data22: ", data);
+    console.log("Data11: ", isChecked);
     console.log(
       "Inside onSubmit ",
       props.currentQuestion + 1,
@@ -274,6 +281,7 @@ export default function AccountSetupQuestio(props) {
       Fr: false,
       Sa: false,
     });
+    setMultiCheckError(false)
 
     if (props.currentQuestion + 1 === props.questions.length) {
       props.navigation.navigate("NewMemberChecklist");
@@ -423,7 +431,7 @@ export default function AccountSetupQuestio(props) {
               rules={{
                 required: {
                   value: true,
-                  message: "Acitvity Level is required",
+                  message: "Activity Level is required",
                 },
               }}
               render={({ field: { onChange, onBlur, value } }) => (
@@ -465,7 +473,7 @@ export default function AccountSetupQuestio(props) {
               rules={{
                 required: {
                   value: true,
-                  message: "Acitvity Level is required",
+                  message: "Weight goal is required",
                 },
               }}
               render={({ field: { onChange, onBlur, value } }) => (
@@ -1011,6 +1019,7 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.Su}
+                disabled={!(isChecked.Su) && (isChecked.total >= upto)}
                 onValueChange={(checked) => onChangeHandler("Su", checked)}
               />
               <Text style={styles.paragraphCheckBox}>Su</Text>
@@ -1019,6 +1028,7 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.Mo}
+                disabled={!(isChecked.Mo) && (isChecked.total >= upto)}
                 onValueChange={(checked) => onChangeHandler("Mo", checked)}
               />
               <Text style={styles.paragraphCheckBox}>Mo</Text>
@@ -1027,6 +1037,7 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.Tu}
+                disabled={!(isChecked.Tu) && (isChecked.total >= upto)}
                 onValueChange={(checked) => onChangeHandler("Tu", checked)}
               />
               <Text style={styles.paragraphCheckBox}>Tu</Text>
@@ -1035,6 +1046,7 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.We}
+                disabled={!(isChecked.We) && (isChecked.total >= upto)}
                 onValueChange={(checked) => onChangeHandler("We", checked)}
               />
               <Text style={styles.paragraphCheckBox}>We</Text>
@@ -1043,6 +1055,7 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.Th}
+                disabled={!(isChecked.Th) && (isChecked.total >= upto)}
                 onValueChange={(checked) => onChangeHandler("Th", checked)}
               />
               <Text style={styles.paragraphCheckBox}>Th</Text>
@@ -1051,6 +1064,7 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.Fr}
+                disabled={!(isChecked.Fr) && (isChecked.total >= upto)}
                 onValueChange={(checked) => onChangeHandler("Fr", checked)}
               />
               <Text style={styles.paragraphCheckBox}>Fr</Text>
@@ -1059,16 +1073,17 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.Sa}
+                disabled={!(isChecked.Sa) && (isChecked.total >= upto)}
                 onValueChange={(checked) => onChangeHandler("Sa", checked)}
               />
               <Text style={styles.paragraphCheckBox}>Sa</Text>
             </View>
           </View>
 
-          <TouchableOpacity onPress={checkBoxHnadler} style={styles.btn}>
+          <TouchableOpacity onPress={() => checkBoxHandler(type)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
-          {multiCheckErro && (
+          {multiCheckError && (
             <Text style={styles.errMsg}>Please Select atleast one day.</Text>
           )}
         </View>
@@ -1142,7 +1157,7 @@ export default function AccountSetupQuestio(props) {
           <TouchableOpacity onPress={checkBoxHnadler} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
-          {multiCheckErro && (
+          {multiCheckError && (
             <Text style={styles.errMsg}>Please Select atleast one day.</Text>
           )}
         </View>
@@ -1216,7 +1231,7 @@ export default function AccountSetupQuestio(props) {
           <TouchableOpacity onPress={checkBoxHnadler} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
-          {multiCheckErro && (
+          {multiCheckError && (
             <Text style={styles.errMsg}>Please Select atleast one day.</Text>
           )}
         </View>

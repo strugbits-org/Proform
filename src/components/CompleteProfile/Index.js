@@ -18,7 +18,7 @@ function CompleteProfile(props) {
     },
     {
       subHeading: "Select Your",
-      mainHeading: "Profile Pciture",
+      mainHeading: "Profile Picture",
       tagLine: "How should we identify you?",
       type: "upload",
     },
