@@ -164,7 +164,7 @@ function AccountSetup(props) {
         "Choose up to seven (7) supplemental workout days. These may be completed before/after core-training or on cardio days.",
       flowText: "",
       upto: 7,
-      type: "trainingDays",
+      type: "supplementDays",
     },
     {
       subHeading: "Customize",
@@ -174,7 +174,7 @@ function AccountSetup(props) {
       flowText: "",
       minDays: 1,
       upto: 5,
-      type: "trainingDays",
+      type: "cardioDays",
     },
     {
       subHeading: "",

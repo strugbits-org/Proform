@@ -265,6 +265,15 @@ export default function AccountSetupQuestio(props) {
       props.currentQuestion + 1,
       props.questions.length
     );
+    setChecked({
+      Su: false,
+      Mo: false,
+      Tu: false,
+      We: false,
+      Th: false,
+      Fr: false,
+      Sa: false,
+    });
 
     if (props.currentQuestion + 1 === props.questions.length) {
       props.navigation.navigate("NewMemberChecklist");
@@ -1064,6 +1073,154 @@ export default function AccountSetupQuestio(props) {
           )}
         </View>
       )}
+      {/* {type === "supplementDays" && (
+        <View
+          style={{
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <View style={styles.containerCheckBox}>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.Su}
+                onValueChange={(checked) => onChangeHandler("Su", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>Su</Text>
+            </View>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.Mo}
+                onValueChange={(checked) => onChangeHandler("Mo", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>Mo</Text>
+            </View>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.Tu}
+                onValueChange={(checked) => onChangeHandler("Tu", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>Tu</Text>
+            </View>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.We}
+                onValueChange={(checked) => onChangeHandler("We", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>We</Text>
+            </View>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.Th}
+                onValueChange={(checked) => onChangeHandler("Th", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>Th</Text>
+            </View>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.Fr}
+                onValueChange={(checked) => onChangeHandler("Fr", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>Fr</Text>
+            </View>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.Sa}
+                onValueChange={(checked) => onChangeHandler("Sa", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>Sa</Text>
+            </View>
+          </View>
+
+          <TouchableOpacity onPress={checkBoxHnadler} style={styles.btn}>
+            <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
+          </TouchableOpacity>
+          {multiCheckErro && (
+            <Text style={styles.errMsg}>Please Select atleast one day.</Text>
+          )}
+        </View>
+      )}
+      {type === "cardioDays" && (
+        <View
+          style={{
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <View style={styles.containerCheckBox}>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.Su}
+                onValueChange={(checked) => onChangeHandler("Su", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>Su</Text>
+            </View>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.Mo}
+                onValueChange={(checked) => onChangeHandler("Mo", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>Mo</Text>
+            </View>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.Tu}
+                onValueChange={(checked) => onChangeHandler("Tu", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>Tu</Text>
+            </View>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.We}
+                onValueChange={(checked) => onChangeHandler("We", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>We</Text>
+            </View>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.Th}
+                onValueChange={(checked) => onChangeHandler("Th", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>Th</Text>
+            </View>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.Fr}
+                onValueChange={(checked) => onChangeHandler("Fr", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>Fr</Text>
+            </View>
+            <View style={styles.sectionCheckBox}>
+              <Checkbox
+                style={styles.checkboxCheckBox}
+                value={isChecked.Sa}
+                onValueChange={(checked) => onChangeHandler("Sa", checked)}
+              />
+              <Text style={styles.paragraphCheckBox}>Sa</Text>
+            </View>
+          </View>
+
+          <TouchableOpacity onPress={checkBoxHnadler} style={styles.btn}>
+            <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
+          </TouchableOpacity>
+          {multiCheckErro && (
+            <Text style={styles.errMsg}>Please Select atleast one day.</Text>
+          )}
+        </View>
+      )} */}
       {type === "setWeights" && (
         <View
           style={{
@@ -1121,10 +1278,25 @@ export default function AccountSetupQuestio(props) {
               source={require("../../../assets/images/benchPress.gif")}
             />
             <View>
-              <TextInput
-                placeholder="0"
-                keyboardType="number-pad"
-                style={styles.numInputField}
+              <Controller
+                control={control}
+                rules={{
+                  required: {
+                    value: true,
+                    message: "Bench Press is required",
+                  },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    value={value}
+                    onBlur={onBlur}
+                    placeholder="0"
+                    keyboardType="number-pad"
+                    style={styles.numInputField}
+                  />
+                )}
+                name="benchPressInput"
               />
             </View>
             <View>
@@ -1141,14 +1313,12 @@ export default function AccountSetupQuestio(props) {
             Unsure? Take your best guess. These weights will automatically
             adjust for you
           </Text>
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.benchPressInput && (
+            <Text style={styles.errMsg}>{errors.benchPressInput.message}</Text>
+          )}
         </View>
       )}
       {type === "backSquats" && (
@@ -1164,10 +1334,25 @@ export default function AccountSetupQuestio(props) {
               source={require("../../../assets/images/backSquats.gif")}
             />
             <View>
-              <TextInput
-                placeholder="0"
-                keyboardType="number-pad"
-                style={styles.numInputField}
+              <Controller
+                control={control}
+                rules={{
+                  required: {
+                    value: true,
+                    message: "Back Squat is required",
+                  },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    value={value}
+                    onBlur={onBlur}
+                    placeholder="0"
+                    keyboardType="number-pad"
+                    style={styles.numInputField}
+                  />
+                )}
+                name="backSquatInput"
               />
             </View>
             <View>
@@ -1184,14 +1369,12 @@ export default function AccountSetupQuestio(props) {
             Unsure? Take your best guess. These weights will automatically
             adjust for you
           </Text>
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.backSquatInput && (
+            <Text style={styles.errMsg}>{errors.backSquatInput.message}</Text>
+          )}
         </View>
       )}
       {type === "powerClean" && (
@@ -1207,10 +1390,25 @@ export default function AccountSetupQuestio(props) {
               source={require("../../../assets/images/powerClean.gif")}
             />
             <View>
-              <TextInput
-                placeholder="0"
-                keyboardType="number-pad"
-                style={styles.numInputField}
+              <Controller
+                control={control}
+                rules={{
+                  required: {
+                    value: true,
+                    message: "Power Clean is required",
+                  },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    value={value}
+                    onBlur={onBlur}
+                    placeholder="0"
+                    keyboardType="number-pad"
+                    style={styles.numInputField}
+                  />
+                )}
+                name="powerCleanInput"
               />
             </View>
             <View>
@@ -1227,14 +1425,12 @@ export default function AccountSetupQuestio(props) {
             Unsure? Take your best guess. These weights will automatically
             adjust for you
           </Text>
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.powerCleanInput && (
+            <Text style={styles.errMsg}>{errors.powerCleanInput.message}</Text>
+          )}
         </View>
       )}
       {type === "deadLift" && (
@@ -1250,10 +1446,25 @@ export default function AccountSetupQuestio(props) {
               source={require("../../../assets/images/deadLift.gif")}
             />
             <View>
-              <TextInput
-                placeholder="0"
-                keyboardType="number-pad"
-                style={styles.numInputField}
+              <Controller
+                control={control}
+                rules={{
+                  required: {
+                    value: true,
+                    message: "Dead Lift is required",
+                  },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onChangeText={onChange}
+                    value={value}
+                    onBlur={onBlur}
+                    placeholder="0"
+                    keyboardType="number-pad"
+                    style={styles.numInputField}
+                  />
+                )}
+                name="deadLiftInput"
               />
             </View>
             <View>
@@ -1270,14 +1481,12 @@ export default function AccountSetupQuestio(props) {
             Unsure? Take your best guess. These weights will automatically
             adjust for you
           </Text>
-          <TouchableOpacity
-            onPress={() => {
-              props.setCurrentQuestion(props.currentQuestion + 1);
-            }}
-            style={styles.btn}
-          >
+          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
+          {errors.deadLiftInput && (
+            <Text style={styles.errMsg}>{errors.deadLiftInput.message}</Text>
+          )}
         </View>
       )}
       {type === "program" && (
