@@ -15,7 +15,7 @@ import { Icon } from "@rneui/themed";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Header(props) {
-  const { userToken } = useContext(AuthContext);
+  const { userToken, drawerOpen, setDrawerOpen } = useContext(AuthContext);
 
   const navigation = props.navigation;
   return (
@@ -28,7 +28,7 @@ export default function Header(props) {
       </View>
       <View>
         <TouchableOpacity onPress={() => {
-          userToken ? navigation.navigate("NewMemberChecklist") : navigation.navigate("Login")
+          userToken ? setDrawerOpen(!drawerOpen) : navigation.navigate("Login")
         }}>
           <Image
             style={{ width: 30, height: 30 }}

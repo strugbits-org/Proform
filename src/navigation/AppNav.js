@@ -1,8 +1,9 @@
 import { AuthContext } from "../context/AuthContext"
-import React, { useContext } from "react";
+import React, { useContext, useState, useRef } from 'react';
 import {
   StyleSheet,
   View,
+  Text,
   ActivityIndicator,
   Platform,
   StatusBar,
@@ -20,10 +21,18 @@ import AccountSetup from "../components/AccountSetup";
 import OnLoadModal from "../components/OnLoadModal";
 import Dashboard from "../screens/Dashboard";
 import Programs from "../screens/Programs";
+import Drawer from 'react-native-drawer'
+
+const Dra = () => {
+  return <View>
+    <Text> Hellllllloooo </Text>
+  </View>
+}
 
 const AppNav = () => {
-  const { isLoading, userToken } = useContext(AuthContext);
+  const { isLoading, userToken, drawerOpen } = useContext(AuthContext);
   const Stack = createNativeStackNavigator();
+
   if (isLoading) {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <ActivityIndicator size={"large"} />
@@ -33,22 +42,30 @@ const AppNav = () => {
   return (
     <View style={styles.container}>
       <NavigationContainer>
-        {userToken !== null ?
-          <Stack.Navigator initialRouteName="Dashboard" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Dashboard" component={Dashboard} />
-            <Stack.Screen name="NewMemberChecklist" component={NewMemberChecklist} />
-            <Stack.Screen name="Programs" component={Programs} />
-            <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
-            <Stack.Screen name="AccountSetup" component={AccountSetup} />
-          </Stack.Navigator>
-          :
-          <Stack.Navigator initialRouteName="Dashboard" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Dashboard" component={Dashboard} />
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="SignUp" component={SignUp} />
-            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-            <Stack.Screen name="ConfirmationBox" component={ConfirmationBox} />
-          </Stack.Navigator>}
+        <Drawer
+          open={drawerOpen}
+          type="overlay"
+          tapToClose={true}
+          content={<Dra />}
+        >
+
+          {userToken !== null ?
+            <Stack.Navigator initialRouteName="Dashboard" screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="Dashboard" component={Dashboard} />
+              <Stack.Screen name="NewMemberChecklist" component={NewMemberChecklist} />
+              <Stack.Screen name="Programs" component={Programs} />
+              <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
+              <Stack.Screen name="AccountSetup" component={AccountSetup} />
+            </Stack.Navigator>
+            :
+            <Stack.Navigator initialRouteName="Dashboard" screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="Dashboard" component={Dashboard} />
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="SignUp" component={SignUp} />
+              <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+              <Stack.Screen name="ConfirmationBox" component={ConfirmationBox} />
+            </Stack.Navigator>}
+        </Drawer>
       </NavigationContainer>
     </View>
   )

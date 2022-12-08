@@ -30,6 +30,7 @@ export default function Login(props) {
 
     if (response.valid) {
       setResponse((prev) => ({ ...prev, status: 1, message: response.msg }));
+      
       setTimeout(() => {
         setIsLoading(false);
         setUserToken("SecretToken")
