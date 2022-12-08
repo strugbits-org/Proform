@@ -14,7 +14,7 @@ import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
 import Btn from "../Button";
 import { useForm, Controller } from "react-hook-form";
-import { PostLogin } from "../../Api/Auth";
+import { UpdateUserInfo } from "../../Api/User";
 
 export default function ProfileQuestions(props) {
   const { subHeading, mainHeading, tagLine, type } = props.item;
@@ -27,6 +27,7 @@ export default function ProfileQuestions(props) {
   } = useForm();
 
   const onSubmit = async (data) => {
+    console.log("Data0: ", data);
     console.log(
       "Inside onSubmit ",
       props.currentQuestion + 1,

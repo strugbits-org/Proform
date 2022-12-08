@@ -21,7 +21,7 @@ import { useForm, Controller } from "react-hook-form";
 import DatePicker from "expo-datepicker";
 import Checkbox from "expo-checkbox";
 import { Icon } from "@rneui/themed";
-import { PostLogin } from "../../Api/Auth";
+import { UpdateUserInfo } from "../../Api/User";
 
 export default function AccountSetupQuestio(props) {
   const { subHeading, mainHeading, tagLine, flowText, type, upto } = props.item;

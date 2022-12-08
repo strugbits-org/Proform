@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,8 +12,11 @@ import Btn from "../Button";
 import { useForm, Controller } from "react-hook-form";
 import { PostLogin } from "../../Api/Auth";
 import { Icon } from "@rneui/themed";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Header(props) {
+  const { userToken } = useContext(AuthContext);
+
   const navigation = props.navigation;
   return (
     <View style={styles.mainHeader}>
@@ -24,7 +27,9 @@ export default function Header(props) {
         <Image source={require("../../../assets/images/logoSmall.jpg")} />
       </View>
       <View>
-        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+        <TouchableOpacity onPress={() => {
+          userToken ? navigation.navigate("NewMemberChecklist") : navigation.navigate("Login")
+        }}>
           <Image
             style={{ width: 30, height: 30 }}
             source={require("../../../assets/images/user.png")}
