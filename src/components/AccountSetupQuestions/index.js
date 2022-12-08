@@ -22,9 +22,18 @@ import DatePicker from "expo-datepicker";
 import Checkbox from "expo-checkbox";
 import { Icon } from "@rneui/themed";
 import { PostLogin } from "../../Api/Auth";
+import Programs from "../../screens/Programs";
 
 export default function AccountSetupQuestio(props) {
-  const { subHeading, mainHeading, tagLine, flowText, type, upto } = props.item;
+  const {
+    subHeading,
+    mainHeading,
+    tagLine,
+    flowText,
+    type,
+    upto,
+    weekSelection,
+  } = props.item;
   const [image, setImage] = useState(null);
   const [genderOpen, setGenderOpen] = useState(false);
   const [genderValue, setGenderValue] = useState("Select from dropdownn");
@@ -89,7 +98,6 @@ export default function AccountSetupQuestio(props) {
     });
 
     if (!result.canceled) {
-      // console.log("Result: ", result);
       setImage(result.assets[0].uri);
     }
   };
@@ -109,9 +117,17 @@ export default function AccountSetupQuestio(props) {
   });
   const onChangeHandler = (name, value) => {
     if (value) {
-      setChecked((prev) => ({ ...prev, [name]: value, total: isChecked.total + 1 }));
+      setChecked((prev) => ({
+        ...prev,
+        [name]: value,
+        total: isChecked.total + 1,
+      }));
     } else {
-      setChecked((prev) => ({ ...prev, [name]: value, total: isChecked.total - 1 }));
+      setChecked((prev) => ({
+        ...prev,
+        [name]: value,
+        total: isChecked.total - 1,
+      }));
     }
   };
 
@@ -138,6 +154,8 @@ export default function AccountSetupQuestio(props) {
       nutrition: "Fat-Loss",
       intensity: "Low-Medium",
       prerequisites: "",
+      previewText:
+        "Preview the first week of workouts for this program, or get started by completing one of the workouts below.",
       workouts: [
         {
           week: 1,
@@ -176,6 +194,45 @@ export default function AccountSetupQuestio(props) {
       link: "",
       badge:
         "https://static.wixstatic.com/media/11c3fa_9fbbcd7b5ac343d0945bbcbfa3eebcdf~mv2.png/v1/fill/w_52,h_52,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/dollar%20sign%20button.png",
+      viewCount: 216,
+      readerCount: 3448,
+      objectives: [
+        "Muscle-Stimulation",
+        "Technique/Repetition",
+        "Balance-Core/Stability",
+      ],
+      schedule: "3x/Week",
+      nutrition: "Fat-Loss",
+      intensity: "Low-Medium",
+      prerequisites: "",
+      previewText:
+        "Preview the first week of workouts for this program, or get started by completing one of the workouts below.",
+      workouts: [
+        {
+          week: 1,
+          day: 1,
+          type: "LOWER BODY",
+          exercise: "Quads, Hamstrings, Glutes",
+          workoutBgImg:
+            "https://static.wixstatic.com/media/11c3fa_07650c42fa6d4f2ea64639e00bbcd808~mv2.jpg/v1/fill/w_640,h_270,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/11c3fa_07650c42fa6d4f2ea64639e00bbcd808~mv2.jpg",
+        },
+        {
+          week: 1,
+          day: 2,
+          type: "UPPER BODY",
+          exercise: "Back, Shoulder, Chest",
+          workoutBgImg:
+            "https://static.wixstatic.com/media/11c3fa_06b47ebb689b4c93a01b9403a7fe5c8e~mv2.jpg/v1/fill/w_640,h_270,al_c,lg_1,q_80,enc_auto/11c3fa_06b47ebb689b4c93a01b9403a7fe5c8e~mv2.jpg",
+        },
+        {
+          week: 1,
+          day: 3,
+          type: "FULL BODY",
+          exercise: "Glutes, Hips, Back",
+          workoutBgImg:
+            "https://static.wixstatic.com/media/11c3fa_b15360d9f4cd4d8d95eacec118972d22~mv2.jpg/v1/fill/w_640,h_270,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/11c3fa_b15360d9f4cd4d8d95eacec118972d22~mv2.jpg",
+        },
+      ],
     },
     {
       id: "2",
@@ -188,6 +245,45 @@ export default function AccountSetupQuestio(props) {
       link: "",
       badge:
         "https://static.wixstatic.com/media/11c3fa_9fbbcd7b5ac343d0945bbcbfa3eebcdf~mv2.png/v1/fill/w_52,h_52,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/dollar%20sign%20button.png",
+      viewCount: 216,
+      readerCount: 3448,
+      objectives: [
+        "Muscle-Stimulation",
+        "Technique/Repetition",
+        "Balance-Core/Stability",
+      ],
+      schedule: "3x/Week",
+      nutrition: "Fat-Loss",
+      intensity: "Low-Medium",
+      prerequisites: "",
+      previewText:
+        "Preview the first week of workouts for this program, or get started by completing one of the workouts below.",
+      workouts: [
+        {
+          week: 1,
+          day: 1,
+          type: "LOWER BODY",
+          exercise: "Quads, Hamstrings, Glutes",
+          workoutBgImg:
+            "https://static.wixstatic.com/media/11c3fa_07650c42fa6d4f2ea64639e00bbcd808~mv2.jpg/v1/fill/w_640,h_270,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/11c3fa_07650c42fa6d4f2ea64639e00bbcd808~mv2.jpg",
+        },
+        {
+          week: 1,
+          day: 2,
+          type: "UPPER BODY",
+          exercise: "Back, Shoulder, Chest",
+          workoutBgImg:
+            "https://static.wixstatic.com/media/11c3fa_06b47ebb689b4c93a01b9403a7fe5c8e~mv2.jpg/v1/fill/w_640,h_270,al_c,lg_1,q_80,enc_auto/11c3fa_06b47ebb689b4c93a01b9403a7fe5c8e~mv2.jpg",
+        },
+        {
+          week: 1,
+          day: 3,
+          type: "FULL BODY",
+          exercise: "Glutes, Hips, Back",
+          workoutBgImg:
+            "https://static.wixstatic.com/media/11c3fa_b15360d9f4cd4d8d95eacec118972d22~mv2.jpg/v1/fill/w_640,h_270,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/11c3fa_b15360d9f4cd4d8d95eacec118972d22~mv2.jpg",
+        },
+      ],
     },
   ]);
 
@@ -214,8 +310,8 @@ export default function AccountSetupQuestio(props) {
 
           <TouchableOpacity
             onPress={() => {
-              console.log("View Program");
-              props.navigation.navigate("Programs");
+              props.setCurrentQuestion(props.currentQuestion + 1);
+              // props.navigation.navigate("Programs");
             }}
             style={styles.programItemBtn}
           >
@@ -265,13 +361,6 @@ export default function AccountSetupQuestio(props) {
     }
   };
   const onSubmit = async (data) => {
-    console.log("Data22: ", data);
-    console.log("Data11: ", isChecked);
-    console.log(
-      "Inside onSubmit ",
-      props.currentQuestion + 1,
-      props.questions.length
-    );
     setChecked({
       Su: false,
       Mo: false,
@@ -280,8 +369,9 @@ export default function AccountSetupQuestio(props) {
       Th: false,
       Fr: false,
       Sa: false,
+      total: 0,
     });
-    setMultiCheckError(false)
+    setMultiCheckError(false);
 
     if (props.currentQuestion + 1 === props.questions.length) {
       props.navigation.navigate("NewMemberChecklist");
@@ -671,14 +761,22 @@ export default function AccountSetupQuestio(props) {
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <View style={styles.agreeCheckBox}>
-                <View style={styles.sectionCheckBox}>
+                <View
+                  style={[
+                    styles.sectionCheckBox,
+                    {
+                      flexDirection: "row",
+                      paddingHorizontal: 20,
+                    },
+                  ]}
+                >
                   <Checkbox
                     style={styles.checkboxCheckBox}
                     value={value}
                     onBlur={onBlur}
                     onValueChange={onChange}
                   />
-                  <Text style={styles.paragraphCheckBox}>
+                  <Text style={[styles.paragraphCheckBox, { marginLeft: 10 }]}>
                     I agree to the site terms & conditions
                   </Text>
                 </View>
@@ -1019,7 +1117,7 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.Su}
-                disabled={!(isChecked.Su) && (isChecked.total >= upto)}
+                disabled={!isChecked.Su && isChecked.total >= upto}
                 onValueChange={(checked) => onChangeHandler("Su", checked)}
               />
               <Text style={styles.paragraphCheckBox}>Su</Text>
@@ -1028,7 +1126,7 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.Mo}
-                disabled={!(isChecked.Mo) && (isChecked.total >= upto)}
+                disabled={!isChecked.Mo && isChecked.total >= upto}
                 onValueChange={(checked) => onChangeHandler("Mo", checked)}
               />
               <Text style={styles.paragraphCheckBox}>Mo</Text>
@@ -1037,7 +1135,7 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.Tu}
-                disabled={!(isChecked.Tu) && (isChecked.total >= upto)}
+                disabled={!isChecked.Tu && isChecked.total >= upto}
                 onValueChange={(checked) => onChangeHandler("Tu", checked)}
               />
               <Text style={styles.paragraphCheckBox}>Tu</Text>
@@ -1046,7 +1144,7 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.We}
-                disabled={!(isChecked.We) && (isChecked.total >= upto)}
+                disabled={!isChecked.We && isChecked.total >= upto}
                 onValueChange={(checked) => onChangeHandler("We", checked)}
               />
               <Text style={styles.paragraphCheckBox}>We</Text>
@@ -1055,7 +1153,7 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.Th}
-                disabled={!(isChecked.Th) && (isChecked.total >= upto)}
+                disabled={!isChecked.Th && isChecked.total >= upto}
                 onValueChange={(checked) => onChangeHandler("Th", checked)}
               />
               <Text style={styles.paragraphCheckBox}>Th</Text>
@@ -1064,7 +1162,7 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.Fr}
-                disabled={!(isChecked.Fr) && (isChecked.total >= upto)}
+                disabled={!isChecked.Fr && isChecked.total >= upto}
                 onValueChange={(checked) => onChangeHandler("Fr", checked)}
               />
               <Text style={styles.paragraphCheckBox}>Fr</Text>
@@ -1073,14 +1171,17 @@ export default function AccountSetupQuestio(props) {
               <Checkbox
                 style={styles.checkboxCheckBox}
                 value={isChecked.Sa}
-                disabled={!(isChecked.Sa) && (isChecked.total >= upto)}
+                disabled={!isChecked.Sa && isChecked.total >= upto}
                 onValueChange={(checked) => onChangeHandler("Sa", checked)}
               />
               <Text style={styles.paragraphCheckBox}>Sa</Text>
             </View>
           </View>
 
-          <TouchableOpacity onPress={() => checkBoxHandler(type)} style={styles.btn}>
+          <TouchableOpacity
+            onPress={() => checkBoxHandler(weekSelection)}
+            style={styles.btn}
+          >
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
           {multiCheckError && (
@@ -1088,154 +1189,6 @@ export default function AccountSetupQuestio(props) {
           )}
         </View>
       )}
-      {/* {type === "supplementDays" && (
-        <View
-          style={{
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          <View style={styles.containerCheckBox}>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.Su}
-                onValueChange={(checked) => onChangeHandler("Su", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>Su</Text>
-            </View>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.Mo}
-                onValueChange={(checked) => onChangeHandler("Mo", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>Mo</Text>
-            </View>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.Tu}
-                onValueChange={(checked) => onChangeHandler("Tu", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>Tu</Text>
-            </View>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.We}
-                onValueChange={(checked) => onChangeHandler("We", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>We</Text>
-            </View>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.Th}
-                onValueChange={(checked) => onChangeHandler("Th", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>Th</Text>
-            </View>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.Fr}
-                onValueChange={(checked) => onChangeHandler("Fr", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>Fr</Text>
-            </View>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.Sa}
-                onValueChange={(checked) => onChangeHandler("Sa", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>Sa</Text>
-            </View>
-          </View>
-
-          <TouchableOpacity onPress={checkBoxHnadler} style={styles.btn}>
-            <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
-          </TouchableOpacity>
-          {multiCheckError && (
-            <Text style={styles.errMsg}>Please Select atleast one day.</Text>
-          )}
-        </View>
-      )}
-      {type === "cardioDays" && (
-        <View
-          style={{
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          <View style={styles.containerCheckBox}>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.Su}
-                onValueChange={(checked) => onChangeHandler("Su", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>Su</Text>
-            </View>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.Mo}
-                onValueChange={(checked) => onChangeHandler("Mo", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>Mo</Text>
-            </View>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.Tu}
-                onValueChange={(checked) => onChangeHandler("Tu", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>Tu</Text>
-            </View>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.We}
-                onValueChange={(checked) => onChangeHandler("We", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>We</Text>
-            </View>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.Th}
-                onValueChange={(checked) => onChangeHandler("Th", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>Th</Text>
-            </View>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.Fr}
-                onValueChange={(checked) => onChangeHandler("Fr", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>Fr</Text>
-            </View>
-            <View style={styles.sectionCheckBox}>
-              <Checkbox
-                style={styles.checkboxCheckBox}
-                value={isChecked.Sa}
-                onValueChange={(checked) => onChangeHandler("Sa", checked)}
-              />
-              <Text style={styles.paragraphCheckBox}>Sa</Text>
-            </View>
-          </View>
-
-          <TouchableOpacity onPress={checkBoxHnadler} style={styles.btn}>
-            <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
-          </TouchableOpacity>
-          {multiCheckError && (
-            <Text style={styles.errMsg}>Please Select atleast one day.</Text>
-          )}
-        </View>
-      )} */}
       {type === "setWeights" && (
         <View
           style={{
@@ -1519,6 +1472,11 @@ export default function AccountSetupQuestio(props) {
             />
           </View>
         </ScrollView>
+      )}
+      {type === "programItem" && (
+        <View>
+          <Programs programData={programlist[0]} />
+        </View>
       )}
     </View>
   );
