@@ -13,7 +13,7 @@ import { PostLogin } from "../../Api/Auth";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Login(props) {
-  const { isLoading, userToken, setIsLoading, setUserToken } = useContext(AuthContext);
+  const { setIsLoading, setUserToken, setUserData } = useContext(AuthContext);
   const [response, setResponse] = useState({ status: 0, message: "" });
   const [btnDisable, setBtnDisable] = useState(false);
   const { control, handleSubmit, formState: { errors } } = useForm({
@@ -30,7 +30,7 @@ export default function Login(props) {
 
     if (response.valid) {
       setResponse((prev) => ({ ...prev, status: 1, message: response.msg }));
-      
+      setUserData(response.user)
       setTimeout(() => {
         setIsLoading(false);
         setUserToken("SecretToken")

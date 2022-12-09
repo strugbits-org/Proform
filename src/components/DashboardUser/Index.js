@@ -58,7 +58,7 @@ const DashboardUser = (props) => {
             onPress={() =>
               Linking.openURL(
                 programDetails.link
-                  ? "https://www.proformapp.com/" + programDetails.link
+                  ? "https://www.proformapp.com" + programDetails.link
                   : "https://www.proformapp.com/"
               )
             }

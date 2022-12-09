@@ -1,4 +1,3 @@
-import { Button } from "@rneui/base";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -6,20 +5,19 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  ToastAndroid,
   Image,
-  Alert,
 } from "react-native";
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
-import Btn from "../Button";
 import { useForm, Controller } from "react-hook-form";
-import { UpdateUserInfo } from "../../Api/User";
+import { Buffer } from 'buffer'
+import { UpdateUserInfo, UpdateProfilePic } from "../../Api/User";
 
 export default function ProfileQuestions(props) {
   const { subHeading, mainHeading, tagLine, type } = props.item;
-  const [image, setImage] = useState(null);
-
+  const [image, setImage] = useState();
+  const [response, setResponse] = useState({ status: 0, message: "" });
+  const [btnDisable, setBtnDisable] = useState(false);
+  const [bufferData, setBufferData] = useState();
   const {
     control,
     handleSubmit,
@@ -27,44 +25,59 @@ export default function ProfileQuestions(props) {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("Data0: ", data);
-    console.log(
-      "Inside onSubmit ",
-      props.currentQuestion + 1,
-      props.questions.length
-    );
+    setResponse((prev) => ({ ...prev, status: 0 }));
+    setBtnDisable(() => true);
 
-    if (props.currentQuestion + 1 === props.questions.length) {
-      props.navigation.navigate("NewMemberChecklist");
+    if (image) {
+
+      const response = await UpdateProfilePic(bufferData, props.data.memberId);
+      if (response.valid) {
+        setResponse((prev) => ({ ...prev, status: 1, message: response.msg }));
+        setTimeout(() => {
+          props.navigation.navigate("NewMemberChecklist")
+        }, 1500);
+      } else {
+        setResponse((prev) => ({ ...prev, status: 2, message: response.error }));
+        setBtnDisable(() => false);
+      }
+
     } else {
-      props.setCurrentQuestion(props.currentQuestion + 1);
-    }
-    // setResponse((prev) => ({ ...prev, status: 0 }));
-    // setBtnDisable(() => true);
-    // let response = await PostLogin(data);
+      if (data.username) {
+        props.data.username = data.username;
+      } else {
+        props.data.fullNames = data.fullNames;
+      }
 
-    // if (response.valid) {
-    //   setResponse((prev) => ({ ...prev, status: 1, message: response.msg }));
-    //   setTimeout(() => {
-    //     props.navigation.navigate("NewMemberChecklist")
-    //   }, 1500);
-    // } else {
-    //   setResponse((prev) => ({ ...prev, status: 2, message: response.error }));
-    //   setBtnDisable(() => false);
-    // }
+      const response = await UpdateUserInfo(props.data);
+
+      if (response.valid) {
+        setResponse((prev) => ({ ...prev, status: 1, message: response.msg }));
+        setTimeout(() => {
+          props.setCurrentQuestion(props.currentQuestion + 1);
+          setResponse((prev) => ({ ...prev, status: 0 }));
+          setBtnDisable(() => false);
+        }, 1500);
+      } else {
+        setResponse((prev) => ({ ...prev, status: 2, message: response.error }));
+        setBtnDisable(() => false);
+      }
+    }
   };
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
+      base64: true
     });
+
+    let buffer = new Buffer.from(result.assets[0].base64, 'base64');
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      setBufferData(buffer)
     }
   };
 
@@ -73,9 +86,6 @@ export default function ProfileQuestions(props) {
       <Text style={styles.subHeading}>{subHeading}</Text>
       <Text style={styles.mainHeading}>{mainHeading}</Text>
       <Text style={styles.tagLine}>{tagLine}</Text>
-      {/* {if(type === "default"){
-            <TextInput style={styles.inputField} placeholder="Type Here" />
-        }} */}
       {type === "fullName" && (
         <View
           style={{
@@ -97,21 +107,21 @@ export default function ProfileQuestions(props) {
                 placeholder="Type Here"
               />
             )}
-            name="fullNameInput"
+            name="fullNames"
           />
 
           <TouchableOpacity
-            // onPress={() => {
-            //   props.setCurrentQuestion(props.currentQuestion + 1);
-            // }}
             onPress={handleSubmit(onSubmit)}
-            style={styles.btn}
+            style={[styles.btn, { backgroundColor: btnDisable ? "rgba(0,0,0,0.4)" : "#000" }]}
+            disabled={btnDisable}
           >
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
-          {errors.fullNameInput && (
-            <Text style={styles.errMsg}>{errors.fullNameInput.message}</Text>
+          {errors.fullNames && (
+            <Text style={styles.errMsg}>{errors.fullNames.message}</Text>
           )}
+          {(response.status === 1) && <Text style={styles.successMsg}>{response.message}</Text>}
+          {(response.status === 2) && <Text style={styles.errMsg}>{response.message}</Text>}
         </View>
       )}
       {type === "userName" && (
@@ -135,15 +145,20 @@ export default function ProfileQuestions(props) {
                 placeholder="Type Here"
               />
             )}
-            name="userName"
+            name="username"
           />
 
-          <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.btn}>
+          <TouchableOpacity
+            onPress={handleSubmit(onSubmit)}
+            style={[styles.btn, { backgroundColor: btnDisable ? "rgba(0,0,0,0.4)" : "#000" }]}
+            disabled={btnDisable}>
             <Text style={{ color: "#fff", fontSize: 16 }}>Next</Text>
           </TouchableOpacity>
-          {errors.userName && (
-            <Text style={styles.errMsg}>{errors.userName.message}</Text>
+          {errors.username && (
+            <Text style={styles.errMsg}>{errors.username.message}</Text>
           )}
+          {(response.status === 1) && <Text style={styles.successMsg}>{response.message}</Text>}
+          {(response.status === 2) && <Text style={styles.errMsg}>{response.message}</Text>}
         </View>
       )}
       {type === "upload" && (
@@ -166,22 +181,20 @@ export default function ProfileQuestions(props) {
           )}
           <TouchableOpacity onPress={pickImage} style={styles.btn}>
             <Text style={{ color: "#fff", fontSize: 16 }}>
-              {" "}
-              + Upload Image{" "}
+              + Upload Image
             </Text>
           </TouchableOpacity>
           {image && (
             <TouchableOpacity
-              // onPress={() => {
-              //   // props.setCurrentQuestion(props.currentQuestion + 1);
-              //   props.navigation.navigate("NewMemberChecklist");
-              // }}
               onPress={onSubmit}
-              style={styles.btn}
+              style={[styles.btn, { backgroundColor: btnDisable ? "rgba(0,0,0,0.4)" : "#000" }]}
+              disabled={btnDisable}
             >
               <Text style={{ color: "#fff", fontSize: 16 }}>Finish</Text>
             </TouchableOpacity>
           )}
+          {(response.status === 1) && <Text style={styles.successMsg}>{response.message}</Text>}
+          {(response.status === 2) && <Text style={styles.errMsg}>{response.message}</Text>}
         </View>
       )}
     </View>
@@ -199,19 +212,8 @@ const styles = StyleSheet.create({
   },
   btn: {
     color: "#fff",
-    backgroundColor: "#000",
     alignItems: "center",
-    width: "80%",
-    paddingVertical: 12,
-    marginVertical: 10,
-    borderRightWidth: 5,
-    borderBottomWidth: 5,
-    borderColor: "#a854fd",
-  },
-  btnLast: {
-    color: "#fff",
     backgroundColor: "#000",
-    alignItems: "center",
     width: "80%",
     paddingVertical: 12,
     marginVertical: 10,
@@ -249,6 +251,10 @@ const styles = StyleSheet.create({
   },
   errMsg: {
     color: "red",
+    marginTop: 7,
+  },
+  successMsg: {
+    color: "green",
     marginTop: 7,
   },
 });

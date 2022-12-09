@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [userAccountData, setUserAccountData] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -17,7 +18,9 @@ export const AuthProvider = ({ children }) => {
       userData,
       setUserData,
       drawerOpen,
-      setDrawerOpen
+      setDrawerOpen,
+      userAccountData,
+      setUserAccountData
     }}>
       {children}
     </AuthContext.Provider>

@@ -8,7 +8,8 @@ export const PostLogin = (body) => {
       .then((res) => {
         let obj = {
           valid: true,
-          msg: res.data.message
+          msg: res.data.message,
+          user: res.data.user
         }
         resolve(obj);
       })

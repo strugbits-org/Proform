@@ -1,37 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
-  TextInput,
-  ScrollView,
   Image,
 } from "react-native";
-import Btn from "../Button";
 import Checkbox from "expo-checkbox";
-import { useForm, Controller } from "react-hook-form";
+import { GetUserInfo } from "../../Api/User";
+import { AuthContext } from "../../context/AuthContext";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function NewMemberChecklist(props) {
-  const [isChecked, setChecked] = useState({
-    Performance: false,
-    FatLoss: false,
-    TrySomethingNew: false,
-  });
+  const { userData, setUserAccountData, userAccountData } = useContext(AuthContext);
+  const [isProfileDone, setIsProfileDone] = useState(false)
+  const isFocused = useIsFocused();
 
-  const [response, setResponse] = useState({ status: 0, message: "" });
-  const [btnDisable, setBtnDisable] = useState(false);
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-      agree: false,
-    },
-  });
+  useEffect(() => {
+    const getMemberInfo = async () => {
+      let response = await GetUserInfo(userData._id);
+      setUserAccountData(response.user);
+      const { fullNames, username, profile } = response.user;
+      if (fullNames && username && profile) {
+        setIsProfileDone(true)
+      }
+    }
+    getMemberInfo()
+  }, [isFocused])
 
   return (
     <View style={styles.mainContainer}>
@@ -43,17 +38,14 @@ export default function NewMemberChecklist(props) {
         <TouchableOpacity
           style={styles.checkBoxContainer}
           onPress={() => props.navigation.navigate("CompleteProfile")}
-          disabled={false}
+          disabled={isProfileDone}
         >
           <View style={styles.agreeCheckBox}>
             <View style={styles.sectionCheckBox}>
-              <Checkbox style={styles.checkboxCheckBox} value="" disabled />
+              <Checkbox style={styles.checkboxCheckBox} value={isProfileDone} disabled />
               <Text style={styles.paragraphCheckBox}>Complete Profile</Text>
             </View>
           </View>
-          {errors.agree && (
-            <Text style={styles.errMsg}>{errors.agree.message}</Text>
-          )}
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.checkBoxContainer}
@@ -65,19 +57,7 @@ export default function NewMemberChecklist(props) {
               <Text style={styles.paragraphCheckBox}>Account Setup</Text>
             </View>
           </View>
-          {errors.agree && (
-            <Text style={styles.errMsg}>{errors.agree.message}</Text>
-          )}
         </TouchableOpacity>
-        {/* <View style={styles.btnBox}>
-          <Btn
-            textColor="white"
-            bgColor={btnDisable ? "rgba(0,0,0,0.4)" : "#000"}
-            btnLabel="Create Account"
-            Press={handleSubmit(onSubmit)}
-            disabled={btnDisable}
-          />
-        </View> */}
       </View>
     </View>
   );
@@ -102,14 +82,6 @@ const styles = StyleSheet.create({
   form: {
     width: "80%",
   },
-  errMsg: {
-    color: "red",
-    marginTop: 7,
-  },
-  successMsg: {
-    color: "green",
-    marginTop: 7,
-  },
   agreeCheckBox: {
     // marginTop: 20,
     width: "100%",
@@ -124,13 +96,6 @@ const styles = StyleSheet.create({
   checkboxCheckBox: {
     marginVertical: 8,
     marginRight: 8,
-  },
-  btnBox: {
-    // margin: 15,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
   },
   checkBoxContainer: {
     padding: 15,

@@ -1,4 +1,3 @@
-import { Button } from "@rneui/base";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -6,23 +5,19 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  ToastAndroid,
   ScrollView,
   Image,
-  Alert,
   FlatList,
   ImageBackground,
-  TouchableWithoutFeedback,
 } from "react-native";
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useForm, Controller } from "react-hook-form";
 import DatePicker from "expo-datepicker";
 import Checkbox from "expo-checkbox";
 import { Icon } from "@rneui/themed";
-import { UpdateUserInfo } from "../../Api/User";
 import Programs from "../../screens/Programs";
+import { UpdateUserInfo } from "../../Api/User";
 
 export default function AccountSetupQuestio(props) {
   const {
@@ -36,7 +31,7 @@ export default function AccountSetupQuestio(props) {
   } = props.item;
   const [image, setImage] = useState(null);
   const [genderOpen, setGenderOpen] = useState(false);
-  const [genderValue, setGenderValue] = useState("Select from dropdownn");
+  const [genderValue, setGenderValue] = useState("Select from dropdown");
   const [gender, setGender] = useState([
     { label: "Male", value: "Male" },
     { label: "Female", value: "Female" },
