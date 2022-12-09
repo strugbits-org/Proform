@@ -27,9 +27,18 @@ export default function Header(props) {
         <Image source={require("../../../assets/images/logoSmall.jpg")} />
       </View>
       <View>
-        <TouchableOpacity onPress={() => {
-          userToken ? setDrawerOpen(!drawerOpen) : navigation.navigate("Login")
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            userToken
+              ? navigation.navigate("NewMemberChecklist")
+              : navigation.navigate("Login");
+          }}
+          // onPress={() => {
+          //   userToken
+          //     ? navigation.navigate("Login")
+          //     : setDrawerOpen(!drawerOpen);
+          // }}
+        >
           <Image
             style={{ width: 30, height: 30 }}
             source={require("../../../assets/images/user.png")}
