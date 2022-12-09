@@ -131,6 +131,7 @@ export default function AccountSetupQuestio(props) {
     }
   };
 
+  let [selectedProgram, setSelectedProgram] = useState(0);
   const [programlist, setProgramList] = useState([
     {
       id: "0",
@@ -310,6 +311,7 @@ export default function AccountSetupQuestio(props) {
 
           <TouchableOpacity
             onPress={() => {
+              setSelectedProgram(Number(item.id));
               props.setCurrentQuestion(props.currentQuestion + 1);
               // props.navigation.navigate("Programs");
             }}
@@ -1475,7 +1477,7 @@ export default function AccountSetupQuestio(props) {
       )}
       {type === "programItem" && (
         <View>
-          <Programs programData={programlist[0]} />
+          <Programs programData={programlist[selectedProgram]} />
         </View>
       )}
     </View>
@@ -1487,7 +1489,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    padding: 20,
+    padding: 10,
+    paddingBottom: 0,
     backgroundColor: "#ffffff",
     height: "100%",
     textAlignVertical: "center",

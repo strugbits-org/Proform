@@ -4,16 +4,21 @@ import AccountSetupQuestions from "../AccountSetupQuestions";
 
 function AccountSetup(props) {
   const [questions, setQuestion] = useState([
-    // {
-    //   subHeading: "Customize",
-    //   mainHeading: "TRAINING DAYS",
-    //   tagLine:
-    //     "Choose up to four (4) core-workout training days. Typically these are spaced one day apart to allow for rest and recovery.",
-    //   flowText: "",
-    //   upto: 4,
-    //   type: "trainingDays",
-    //   weekSelection: "trainingWeek",
-    // },
+    {
+      subHeading: "Choose a",
+      mainHeading: "PROGRAM",
+      tagLine:
+        "Here's a few we thought would be perfect for you. Choose one of the following programs below to get started:",
+      flowText: "",
+      type: "program",
+    },
+    {
+      subHeading: "",
+      mainHeading: "",
+      tagLine: "",
+      flowText: "",
+      type: "programItem",
+    },
     {
       subHeading: "",
       mainHeading: "Account Setup",
