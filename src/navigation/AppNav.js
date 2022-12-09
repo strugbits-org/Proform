@@ -38,10 +38,10 @@ const AppNav = (props) => {
       <NavigationContainer>
         {userToken !== null ? (
           <Stack.Navigator
-            initialRouteName="NewMemberChecklist"
+            initialRouteName="Dashboard"
             screenOptions={{ headerShown: false }}
           >
-            {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
+            <Stack.Screen name="Dashboard" component={Dashboard} />
             <Stack.Screen
               name="NewMemberChecklist"
               component={NewMemberChecklist}
@@ -52,10 +52,10 @@ const AppNav = (props) => {
           </Stack.Navigator>
         ) : (
           <Stack.Navigator
-            initialRouteName="NewMemberChecklist"
+            initialRouteName="Dashboard"
             screenOptions={{ headerShown: false }}
           >
-            {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
+            <Stack.Screen name="Dashboard" component={Dashboard} />
             <Stack.Screen
               name="NewMemberChecklist"
               component={NewMemberChecklist}

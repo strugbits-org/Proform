@@ -13,6 +13,7 @@ import { useForm, Controller } from "react-hook-form";
 import { PostLogin } from "../../Api/Auth";
 import { Icon } from "@rneui/themed";
 import { AuthContext } from "../../context/AuthContext";
+import MainMenuModal from "../MainMenuModal";
 
 export default function Header(props) {
   const { userToken, drawerOpen, setDrawerOpen } = useContext(AuthContext);
@@ -27,7 +28,17 @@ export default function Header(props) {
         <Image source={require("../../../assets/images/logoSmall.jpg")} />
       </View>
       <View>
-        <TouchableOpacity
+        {userToken ? (
+          <MainMenuModal navigation={navigation} />
+        ) : (
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Image
+              style={{ width: 30, height: 30 }}
+              source={require("../../../assets/images/user.png")}
+            />
+          </TouchableOpacity>
+        )}
+        {/* <TouchableOpacity
           onPress={() => {
             userToken
               ? navigation.navigate("NewMemberChecklist")
@@ -43,7 +54,7 @@ export default function Header(props) {
             style={{ width: 30, height: 30 }}
             source={require("../../../assets/images/user.png")}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );
