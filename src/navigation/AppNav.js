@@ -19,7 +19,7 @@ import NewMemberChecklist from "../components/NewMemberChecklist";
 import AccountSetup from "../components/AccountSetup";
 import Dashboard from "../screens/Dashboard";
 import Programs from "../screens/Programs";
-import OnLoadModal from "../components/OnLoadModal";
+import MainMenuModal from "../components/MainMenuModal";
 
 const AppNav = () => {
   const { isLoading, userToken } = useContext(AuthContext);
@@ -35,10 +35,17 @@ const AppNav = () => {
     <View style={styles.container}>
       <NavigationContainer>
         {userToken !== null ? (
-          <Stack.Navigator initialRouteName="Dashboard" screenOptions={{ headerShown: false }} >
+          <Stack.Navigator
+            initialRouteName="Dashboard"
+            screenOptions={{ headerShown: false }}
+          >
             <Stack.Screen name="Dashboard" component={Dashboard} />
-            <Stack.Screen name="NewMemberChecklist" component={NewMemberChecklist} />
+            <Stack.Screen
+              name="NewMemberChecklist"
+              component={NewMemberChecklist}
+            />
             <Stack.Screen name="Programs" component={Programs} />
+            <Stack.Screen name="MainMenuModal" component={MainMenuModal} />
             <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
             <Stack.Screen name="AccountSetup" component={AccountSetup} />
           </Stack.Navigator>

@@ -13,6 +13,7 @@ import { useForm, Controller } from "react-hook-form";
 import { PostLogin } from "../../Api/Auth";
 import { Icon } from "@rneui/themed";
 import { AuthContext } from "../../context/AuthContext";
+import MainMenuModal from "../MainMenuModal";
 
 export default function Header(props) {
   const { userToken, drawerOpen, setDrawerOpen } = useContext(AuthContext);
@@ -29,15 +30,12 @@ export default function Header(props) {
       <View>
         <TouchableOpacity
           onPress={() => {
-            userToken
-              ? navigation.navigate("NewMemberChecklist")
-              : navigation.navigate("Login");
+            {
+              userToken
+                ? navigation.navigate("MainMenuModal")
+                : navigation.navigate("Login");
+            }
           }}
-          // onPress={() => {
-          //   userToken
-          //     ? navigation.navigate("Login")
-          //     : setDrawerOpen(!drawerOpen);
-          // }}
         >
           <Image
             style={{ width: 30, height: 30 }}
