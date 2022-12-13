@@ -22,6 +22,7 @@ import AccountSetup from "../components/AccountSetup";
 import OnLoadModal from "../components/OnLoadModal";
 import Dashboard from "../screens/Dashboard";
 import Programs from "../screens/Programs";
+import MainMenuModal from "../components/MainMenuModal";
 
 const AppNav = (props) => {
   const { isLoading, userToken, drawerOpen } = useContext(AuthContext);
@@ -47,6 +48,7 @@ const AppNav = (props) => {
               component={NewMemberChecklist}
             />
             <Stack.Screen name="Programs" component={Programs} />
+            <Stack.Screen name="MainMenuModal" component={MainMenuModal} />
             <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
             <Stack.Screen name="AccountSetup" component={AccountSetup} />
           </Stack.Navigator>

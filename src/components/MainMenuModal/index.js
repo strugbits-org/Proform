@@ -12,67 +12,32 @@ import { Icon } from "@rneui/themed";
 import Btn from "../Button";
 
 const MainMenuModal = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [likeIcon, setLikeIcon] = useState("heart-o");
-  const [like, setLike] = useState(false);
   return (
     <View style={styles.centeredView}>
-      <Modal
-        // animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View style={{ position: "absolute", right: 20, top: 20 }}>
-              <Icon
-                name="close"
-                type="font-awesome"
-                color="#000"
-                onPress={() => setModalVisible(!modalVisible)}
-              />
-            </View>
-
-            <Btn
-              textColor="#000"
-              btnLabel="My Account"
-              btnWidth="90%"
-              Press={() => {
-                console.log("Navigate");
-                setModalVisible(!modalVisible);
-                navigation.navigate("NewMemberChecklist");
-              }}
-            />
-            <Btn
-              textColor="#000"
-              btnLabel="Log Out"
-              btnWidth="90%"
-              Press={() => setModalVisible(!modalVisible)}
-            />
-          </View>
+      <View style={styles.modalView}>
+        <View style={{ position: "absolute", right: 30, top: 30 }}>
+          <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+            <Icon name="close" type="font-awesome" color="#000" />
+          </TouchableWithoutFeedback>
         </View>
-      </Modal>
-      <TouchableWithoutFeedback
-        // style={[styles.button, styles.buttonOpen]}
-        onPress={() => {
-          if (like) {
-            // setLikeIcon("heart-o");
-            setLike(false);
-          } else {
-            setLike(true);
-            // setLikeIcon("heart");
-            setModalVisible(true);
-          }
-        }}
-      >
-        <Image
-          style={{ width: 30, height: 30 }}
-          source={require("../../../assets/images/user.png")}
-        />
-      </TouchableWithoutFeedback>
+        <View style={styles.menu}>
+          <Btn
+            textColor="#000"
+            btnLabel="My Account"
+            btnWidth="90%"
+            Press={() => {
+              console.log("Navigate");
+              navigation.navigate("NewMemberChecklist");
+            }}
+          />
+          <Btn
+            textColor="#000"
+            btnLabel="Log Out"
+            btnWidth="90%"
+            Press={() => navigation.goBack()}
+          />
+        </View>
+      </View>
     </View>
   );
 };
@@ -82,9 +47,9 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: "center",
     // alignItems: "center",
-    position: "absolute",
+    // position: "absolute",
     right: 0,
-    width: "75%",
+    width: "100%",
     height: "100%",
     backgroundColor: "#ff00ff",
   },
@@ -94,7 +59,7 @@ const styles = StyleSheet.create({
     position: "relative",
     backgroundColor: "white",
     borderRadius: 0,
-    paddingHorizontal: 20,
+    paddingHorizontal: 40,
     paddingVertical: 35,
     alignItems: "center",
     shadowColor: "#000",
@@ -106,9 +71,11 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  gifImage: {
-    width: 112,
-    height: 84,
+  menu: {
+    marginTop: 40,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   button: {
     borderRadius: 20,

@@ -28,33 +28,20 @@ export default function Header(props) {
         <Image source={require("../../../assets/images/logoSmall.jpg")} />
       </View>
       <View>
-        {userToken ? (
-          <MainMenuModal navigation={navigation} />
-        ) : (
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Image
-              style={{ width: 30, height: 30 }}
-              source={require("../../../assets/images/user.png")}
-            />
-          </TouchableOpacity>
-        )}
-        {/* <TouchableOpacity
+        <TouchableOpacity
           onPress={() => {
-            userToken
-              ? navigation.navigate("NewMemberChecklist")
-              : navigation.navigate("Login");
+            {
+              userToken
+                ? navigation.navigate("MainMenuModal")
+                : navigation.navigate("Login");
+            }
           }}
-          // onPress={() => {
-          //   userToken
-          //     ? navigation.navigate("Login")
-          //     : setDrawerOpen(!drawerOpen);
-          // }}
         >
           <Image
             style={{ width: 30, height: 30 }}
             source={require("../../../assets/images/user.png")}
           />
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
     </View>
   );
