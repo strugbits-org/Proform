@@ -12,12 +12,15 @@ import { AuthContext } from "../../context/AuthContext";
 import { useIsFocused } from "@react-navigation/native";
 
 export default function NewMemberChecklist(props) {
-  const { userData, setUserAccountData, userAccountData } = useContext(AuthContext);
+  const { userData, setUserAccountData } = useContext(AuthContext);
   const [isProfileDone, setIsProfileDone] = useState(false)
   const isFocused = useIsFocused();
 
   useEffect(() => {
     const getMemberInfo = async () => {
+      if (!userData?._id) {
+        props.navigation.navigate("Dashboard")
+      }
       let response = await GetUserInfo(userData._id);
       setUserAccountData(response.user);
       const { fullNames, username, profile } = response.user;

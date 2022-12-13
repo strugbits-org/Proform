@@ -1,13 +1,11 @@
 import { AuthContext } from "../context/AuthContext";
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext } from "react";
 import {
   StyleSheet,
   View,
-  Text,
   ActivityIndicator,
   Platform,
   StatusBar,
-  TouchableOpacity,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -19,12 +17,12 @@ import ConfirmationBox from "../components/ConfirmationBox";
 import CompleteProfile from "../components/CompleteProfile";
 import NewMemberChecklist from "../components/NewMemberChecklist";
 import AccountSetup from "../components/AccountSetup";
-import OnLoadModal from "../components/OnLoadModal";
 import Dashboard from "../screens/Dashboard";
 import Programs from "../screens/Programs";
+import OnLoadModal from "../components/OnLoadModal";
 
-const AppNav = (props) => {
-  const { isLoading, userToken, drawerOpen } = useContext(AuthContext);
+const AppNav = () => {
+  const { isLoading, userToken } = useContext(AuthContext);
   const Stack = createNativeStackNavigator();
 
   if (isLoading) {
@@ -37,32 +35,18 @@ const AppNav = (props) => {
     <View style={styles.container}>
       <NavigationContainer>
         {userToken !== null ? (
-          <Stack.Navigator
-            initialRouteName="NewMemberChecklist"
-            screenOptions={{ headerShown: false }}
-          >
-            {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
-            <Stack.Screen
-              name="NewMemberChecklist"
-              component={NewMemberChecklist}
-            />
+          <Stack.Navigator initialRouteName="Dashboard" screenOptions={{ headerShown: false }} >
+            <Stack.Screen name="Dashboard" component={Dashboard} />
+            <Stack.Screen name="NewMemberChecklist" component={NewMemberChecklist} />
             <Stack.Screen name="Programs" component={Programs} />
             <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
             <Stack.Screen name="AccountSetup" component={AccountSetup} />
           </Stack.Navigator>
         ) : (
-          <Stack.Navigator
-            initialRouteName="NewMemberChecklist"
-            screenOptions={{ headerShown: false }}
-          >
-            {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
-            <Stack.Screen
-              name="NewMemberChecklist"
-              component={NewMemberChecklist}
-            />
+          <Stack.Navigator initialRouteName="Dashboard" screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Dashboard" component={Dashboard} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={SignUp} />
-            <Stack.Screen name="AccountSetup" component={AccountSetup} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="ConfirmationBox" component={ConfirmationBox} />
           </Stack.Navigator>
