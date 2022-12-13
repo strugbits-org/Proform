@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import {
   Image,
   Modal,
@@ -10,8 +10,11 @@ import {
 } from "react-native";
 import { Icon } from "@rneui/themed";
 import Btn from "../Button";
+import { AuthContext } from "../../context/AuthContext";
 
 const MainMenuModal = ({ navigation }) => {
+
+  const { setUserToken } = useContext(AuthContext);
   return (
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
@@ -26,7 +29,6 @@ const MainMenuModal = ({ navigation }) => {
             btnLabel="My Account"
             btnWidth="90%"
             Press={() => {
-              console.log("Navigate");
               navigation.navigate("NewMemberChecklist");
             }}
           />
@@ -34,7 +36,10 @@ const MainMenuModal = ({ navigation }) => {
             textColor="#000"
             btnLabel="Log Out"
             btnWidth="90%"
-            Press={() => navigation.goBack()}
+            Press={() => {
+              setUserToken(null)
+              navigation.navigate("Dashboard")
+            }}
           />
         </View>
       </View>
@@ -76,26 +81,6 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
   },
 });
 
