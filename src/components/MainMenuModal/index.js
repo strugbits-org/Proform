@@ -1,10 +1,6 @@
 import React, { useContext } from "react";
 import {
-  Image,
-  Modal,
   StyleSheet,
-  Text,
-  Pressable,
   View,
   TouchableWithoutFeedback,
 } from "react-native";

@@ -1,19 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import {
   StyleSheet,
-  Text,
   View,
   TouchableOpacity,
-  TextInput,
   Image,
   StatusBar,
 } from "react-native";
-import Btn from "../Button";
-import { useForm, Controller } from "react-hook-form";
-import { PostLogin } from "../../Api/Auth";
 import { Icon } from "@rneui/themed";
 import { AuthContext } from "../../context/AuthContext";
-import MainMenuModal from "../MainMenuModal";
 
 export default function Header(props) {
   const { userToken, drawerOpen, setDrawerOpen } = useContext(AuthContext);

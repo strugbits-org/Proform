@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-  KeyboardAvoidingView,
   StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
   ImageBackground,
-  Keyboard,
   ScrollView,
   FlatList,
   Image,

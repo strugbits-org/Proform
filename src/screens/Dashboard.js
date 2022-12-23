@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
-  KeyboardAvoidingView,
   StyleSheet,
-  Text,
   View,
-  TextInput,
-  TouchableOpacity,
-  Keyboard,
-  ScrollView,
   FlatList,
 } from "react-native";
 import DashboardUser from "../components/DashboardUser";

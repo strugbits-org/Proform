@@ -53,6 +53,7 @@ export default function ForgotPassword(props) {
             placeholder="Email"
             onBlur={onBlur}
             style={styles.inputField}
+            placeholderTextColor="#000"
           />
         )}
         name="email"

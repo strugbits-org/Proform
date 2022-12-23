@@ -17,7 +17,7 @@ import DatePicker from "expo-datepicker";
 import Checkbox from "expo-checkbox";
 import { Icon } from "@rneui/themed";
 import Programs from "../../screens/Programs";
-import { UpdateUserInfo } from "../../Api/User";
+// import { UpdateUserInfo } from "../../Api/User";
 
 export default function AccountSetupQuestio(props) {
   const {
@@ -838,6 +838,7 @@ export default function AccountSetupQuestio(props) {
                     placeholder="0"
                     keyboardType="number-pad"
                     style={styles.numInputField}
+                    placeholderTextColor="#000"
                   />
                 )}
                 name="currentWeightInput"
@@ -883,6 +884,7 @@ export default function AccountSetupQuestio(props) {
                     placeholder="0"
                     keyboardType="number-pad"
                     style={styles.numInputField}
+                    placeholderTextColor="#000"
                   />
                 )}
                 name="goalWeightInput"
@@ -925,6 +927,7 @@ export default function AccountSetupQuestio(props) {
                     onBlur={onBlur}
                     placeholder="0"
                     keyboardType="number-pad"
+                    placeholderTextColor="#000"
                     style={styles.numInputField}
                   />
                 )}
@@ -969,6 +972,7 @@ export default function AccountSetupQuestio(props) {
                     placeholder="0"
                     keyboardType="number-pad"
                     style={styles.numInputField}
+                    placeholderTextColor="#000"
                   />
                 )}
                 name="calorieInput"
@@ -1013,6 +1017,7 @@ export default function AccountSetupQuestio(props) {
                       placeholder="0"
                       keyboardType="number-pad"
                       style={styles.numInputField}
+                      placeholderTextColor="#000"
                     />
                   )}
                   name="heightInput"
@@ -1028,6 +1033,7 @@ export default function AccountSetupQuestio(props) {
                   placeholder="0"
                   keyboardType="number-pad"
                   style={styles.numInputField}
+                  placeholderTextColor="#000"
                 />
               </View>
               <View>
@@ -1258,6 +1264,7 @@ export default function AccountSetupQuestio(props) {
                     onBlur={onBlur}
                     placeholder="0"
                     keyboardType="number-pad"
+                    placeholderTextColor="#000"
                     style={styles.numInputField}
                   />
                 )}
@@ -1314,6 +1321,7 @@ export default function AccountSetupQuestio(props) {
                     onBlur={onBlur}
                     placeholder="0"
                     keyboardType="number-pad"
+                    placeholderTextColor="#000"
                     style={styles.numInputField}
                   />
                 )}
@@ -1371,6 +1379,7 @@ export default function AccountSetupQuestio(props) {
                     placeholder="0"
                     keyboardType="number-pad"
                     style={styles.numInputField}
+                    placeholderTextColor="#000"
                   />
                 )}
                 name="powerCleanInput"
@@ -1427,6 +1436,7 @@ export default function AccountSetupQuestio(props) {
                     placeholder="0"
                     keyboardType="number-pad"
                     style={styles.numInputField}
+                    placeholderTextColor="#000"
                   />
                 )}
                 name="deadLiftInput"

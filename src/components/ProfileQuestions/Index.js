@@ -105,6 +105,7 @@ export default function ProfileQuestions(props) {
                 onBlur={onBlur}
                 style={styles.inputField}
                 placeholder="Type Here"
+                placeholderTextColor="#000"
               />
             )}
             name="fullNames"
@@ -143,6 +144,7 @@ export default function ProfileQuestions(props) {
                 onBlur={onBlur}
                 style={styles.inputField}
                 placeholder="Type Here"
+                placeholderTextColor="#000"
               />
             )}
             name="username"

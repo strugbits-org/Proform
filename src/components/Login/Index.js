@@ -68,6 +68,7 @@ export default function Login(props) {
               onChangeText={onChange}
               value={value}
               placeholder="Account Email"
+              placeholderTextColor="#000"
               onBlur={onBlur}
               style={styles.loginInputField}
             />
@@ -89,6 +90,7 @@ export default function Login(props) {
               value={value}
               onBlur={onBlur}
               placeholder="Password"
+              placeholderTextColor="#000"
               secureTextEntry={true}
               style={styles.loginInputField}
             />
