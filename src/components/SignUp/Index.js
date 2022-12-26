@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
-  Image
+  Image,
 } from "react-native";
 import Btn from "../Button";
 import Checkbox from "expo-checkbox";
@@ -22,12 +22,16 @@ export default function SignUp(props) {
 
   const [response, setResponse] = useState({ status: 0, message: "" });
   const [btnDisable, setBtnDisable] = useState(false);
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
-      email: '',
-      password: '',
-      agree: false
-    }
+      email: "",
+      password: "",
+      agree: false,
+    },
   });
 
   const onChangeHandler = (name, value) => {
@@ -39,24 +43,28 @@ export default function SignUp(props) {
     setBtnDisable(() => true);
 
     let goals = [];
-    if (isChecked.Performance || isChecked.FatLoss || isChecked.TrySomethingNew) {
-      isChecked.Performance && goals.push("Performance")
-      isChecked.FatLoss && goals.push("Fat-Loss")
-      isChecked.TrySomethingNew && goals.push("Try Something New")
-      data.goals = goals
+    if (
+      isChecked.Performance ||
+      isChecked.FatLoss ||
+      isChecked.TrySomethingNew
+    ) {
+      isChecked.Performance && goals.push("Performance");
+      isChecked.FatLoss && goals.push("Fat-Loss");
+      isChecked.TrySomethingNew && goals.push("Try Something New");
+      data.goals = goals;
     }
     let response = await PostSignUp(data);
 
     if (response.valid) {
       setResponse((prev) => ({ ...prev, status: 1, message: response.msg }));
       setTimeout(() => {
-        props.navigation.navigate("Dashboard")
+        props.navigation.navigate("Dashboard");
       }, 1500);
     } else {
       setResponse((prev) => ({ ...prev, status: 2, message: response.error }));
       setBtnDisable(() => false);
     }
-  }
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -78,7 +86,10 @@ export default function SignUp(props) {
           control={control}
           rules={{
             required: { value: true, message: "Email is required" },
-            pattern: { value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, message: "Please enter a valid email address" }
+            pattern: {
+              value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+              message: "Please enter a valid email address",
+            },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
@@ -92,14 +103,22 @@ export default function SignUp(props) {
           )}
           name="email"
         />
-        {errors.email && <Text style={styles.errMsg}>{errors.email.message}</Text>}
+        {errors.email && (
+          <Text style={styles.errMsg}>{errors.email.message}</Text>
+        )}
 
         <Controller
           control={control}
           rules={{
             required: { value: true, message: "Password is required" },
-            minLength: { value: 4, message: "Password must be at least 4 characters" },
-            maxLength: { value: 100, message: "Password must be less then 100 characters" },
+            minLength: {
+              value: 4,
+              message: "Password must be at least 4 characters",
+            },
+            maxLength: {
+              value: 100,
+              message: "Password must be less then 100 characters",
+            },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
@@ -114,7 +133,9 @@ export default function SignUp(props) {
           )}
           name="password"
         />
-        {errors.password && <Text style={styles.errMsg}>{errors.password.message}</Text>}
+        {errors.password && (
+          <Text style={styles.errMsg}>{errors.password.message}</Text>
+        )}
 
         <View style={styles.containerCheckBox}>
           <Text style={{ color: "#000", fontSize: 18, marginBottom: 10 }}>
@@ -124,7 +145,9 @@ export default function SignUp(props) {
             <Checkbox
               style={styles.checkboxCheckBox}
               value={isChecked.Performance}
-              onValueChange={(checked) => onChangeHandler("Performance", checked)}
+              onValueChange={(checked) =>
+                onChangeHandler("Performance", checked)
+              }
             />
             <Text style={styles.paragraphCheckBox}>Performance</Text>
           </View>
@@ -175,7 +198,6 @@ export default function SignUp(props) {
                   style={styles.checkboxCheckBox}
                   value={value}
                   onBlur={onBlur}
-
                   onValueChange={onChange}
                 />
                 <Text style={styles.paragraphCheckBox}>
@@ -186,18 +208,26 @@ export default function SignUp(props) {
           )}
           name="agree"
         />
-        {errors.agree && <Text style={styles.errMsg}>{errors.agree.message}</Text>}
+        {errors.agree && (
+          <Text style={styles.errMsg}>{errors.agree.message}</Text>
+        )}
         <View style={styles.btnBox}>
-          <Btn textColor="white" bgColor={btnDisable ? "rgba(0,0,0,0.4)" : "#000"}
+          <Btn
+            textColor="white"
+            bgColor={btnDisable ? "rgba(0,0,0,0.4)" : "#000"}
             btnLabel="Create Account"
             Press={handleSubmit(onSubmit)}
-            disabled={btnDisable} />
+            disabled={btnDisable}
+          />
 
-          {(response.status === 1) && <Text style={styles.successMsg}>{response.message}</Text>}
-          {(response.status === 2) && <Text style={styles.errMsg}>{response.message}</Text>}
+          {response.status === 1 && (
+            <Text style={styles.successMsg}>{response.message}</Text>
+          )}
+          {response.status === 2 && (
+            <Text style={styles.errMsg}>{response.message}</Text>
+          )}
         </View>
       </ScrollView>
-
     </View>
   );
 }
@@ -218,7 +248,7 @@ const styles = StyleSheet.create({
     color: "#000",
     fontWeight: "bold",
     fontSize: 24,
-    marginTop: 20
+    marginTop: 20,
   },
   headerBox: {
     display: "flex",
@@ -234,10 +264,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#000",
     marginTop: 20,
-    lineHeight: 2,
     width: "100%",
-    height: 30,
-    paddingVertical: 0
+    height: 40,
+    paddingVertical: 0,
   },
   errMsg: {
     color: "red",
@@ -271,6 +300,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });

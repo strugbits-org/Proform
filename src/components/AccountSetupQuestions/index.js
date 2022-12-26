@@ -1531,7 +1531,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     textAlign: "center",
     height: 30,
-    paddingVertical: 0
+    paddingVertical: 0,
   },
   numberBox: {
     flexDirection: "row",
@@ -1581,11 +1581,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     width: "80%",
     marginBottom: 15,
+    zIndex: 11,
   },
   dropdown: {
     borderColor: "#B7B7B7",
     height: 50,
     borderRadius: 0,
+    zIndex: 10,
   },
   containerCheckBox: {
     flexDirection: "row",

@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#000",
     marginTop: 20,
-    lineHeight: 2,
     width: "100%",
   },
   errMsg: {

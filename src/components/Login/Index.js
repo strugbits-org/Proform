@@ -16,11 +16,15 @@ export default function Login(props) {
   const { setIsLoading, setUserToken, setUserData } = useContext(AuthContext);
   const [response, setResponse] = useState({ status: 0, message: "" });
   const [btnDisable, setBtnDisable] = useState(false);
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
-      email: '',
-      password: ''
-    }
+      email: "",
+      password: "",
+    },
   });
 
   const onSubmit = async (data) => {
@@ -30,22 +34,21 @@ export default function Login(props) {
 
     if (response.valid) {
       setResponse((prev) => ({ ...prev, status: 1, message: response.msg }));
-      setUserData(response.user)
+      setUserData(response.user);
       setTimeout(() => {
         setIsLoading(false);
-        setUserToken("SecretToken")
+        setUserToken("SecretToken");
       }, 1500);
     } else {
       setResponse((prev) => ({ ...prev, status: 2, message: response.error }));
       setBtnDisable(() => false);
     }
-  }
+  };
 
   return (
     <View style={styles.mainContainer}>
-
       <Image source={require("../../../assets/images/logoSmall.jpg")} />
-      <Text style={styles.heading}>  Log In  </Text>
+      <Text style={styles.heading}> Log In </Text>
 
       <View style={styles.headerBox}>
         <Text style={{ fontSize: 16 }}>New member ?</Text>
@@ -61,7 +64,10 @@ export default function Login(props) {
           control={control}
           rules={{
             required: { value: true, message: "Email is required" },
-            pattern: { value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, message: "Please enter a valid email address" }
+            pattern: {
+              value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+              message: "Please enter a valid email address",
+            },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
@@ -75,14 +81,22 @@ export default function Login(props) {
           )}
           name="email"
         />
-        {errors.email && <Text style={styles.errMsg}>{errors.email.message}</Text>}
+        {errors.email && (
+          <Text style={styles.errMsg}>{errors.email.message}</Text>
+        )}
 
         <Controller
           control={control}
           rules={{
             required: { value: true, message: "Password is required" },
-            minLength: { value: 4, message: "Password must be at least 4 characters" },
-            maxLength: { value: 100, message: "Password must be less then 100 characters" },
+            minLength: {
+              value: 4,
+              message: "Password must be at least 4 characters",
+            },
+            maxLength: {
+              value: 100,
+              message: "Password must be less then 100 characters",
+            },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
@@ -97,20 +111,31 @@ export default function Login(props) {
           )}
           name="password"
         />
-        {errors.password && <Text style={styles.errMsg}>{errors.password.message}</Text>}
-
+        {errors.password && (
+          <Text style={styles.errMsg}>{errors.password.message}</Text>
+        )}
       </View>
 
       <View style={styles.forgotPasswordBox}>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate("ForgotPassword")}>
+          onPress={() => props.navigation.navigate("ForgotPassword")}
+        >
           <Text style={styles.forgotPassword}>Forgot Password?</Text>
         </TouchableOpacity>
       </View>
-      <Btn textColor="white" bgColor={btnDisable ? "rgba(0,0,0,0.4)" : "#000"} btnLabel="Login" Press={handleSubmit(onSubmit)} disabled={btnDisable} />
-      {(response.status === 1) && <Text style={styles.successMsg}>{response.message}</Text>}
-      {(response.status === 2) && <Text style={styles.errMsg}>{response.message}</Text>}
-
+      <Btn
+        textColor="white"
+        bgColor={btnDisable ? "rgba(0,0,0,0.4)" : "#000"}
+        btnLabel="Login"
+        Press={handleSubmit(onSubmit)}
+        disabled={btnDisable}
+      />
+      {response.status === 1 && (
+        <Text style={styles.successMsg}>{response.message}</Text>
+      )}
+      {response.status === 2 && (
+        <Text style={styles.errMsg}>{response.message}</Text>
+      )}
     </View>
   );
 }
@@ -127,7 +152,7 @@ const styles = StyleSheet.create({
   heading: {
     color: "#000",
     fontWeight: "bold",
-    fontSize: 36
+    fontSize: 36,
   },
   headerBox: {
     display: "flex",
@@ -145,10 +170,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#000",
     marginTop: 20,
-    lineHeight: 2,
     width: "100%",
-    height: 30,
-    paddingVertical: 0
+    height: 40,
+    paddingVertical: 0,
   },
   errMsg: {
     color: "red",
@@ -166,6 +190,6 @@ const styles = StyleSheet.create({
   forgotPassword: {
     color: "#000",
     fontSize: 14,
-    textDecorationLine: "underline"
-  }
+    textDecorationLine: "underline",
+  },
 });
