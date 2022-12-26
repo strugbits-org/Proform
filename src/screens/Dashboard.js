@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  FlatList,
-} from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import DashboardUser from "../components/DashboardUser";
 import Header from "../components/Header";
 import { GetFeeds } from "../Api/Dashboard";
 
 export default function Dashboard(props) {
-  const [task, setTask] = useState();
+  const [flag, setFlag] = useState(false);
   const [taskItems, setTaskItems] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
       let response = await GetFeeds();
+      if (response) {
+        setFlag(true);
+      }
       response.valid && setTaskItems(response.workouts);
     };
     getData();
@@ -34,11 +33,15 @@ export default function Dashboard(props) {
 
       <View style={styles.tasksWrapper}>
         <View style={styles.items}>
-          <FlatList
-            data={taskItems}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          />
+          {flag ? (
+            <FlatList
+              data={taskItems}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id}
+            />
+          ) : (
+            <Image source={require("../../../assets/images/loading.gif")} />
+          )}
         </View>
       </View>
     </View>
