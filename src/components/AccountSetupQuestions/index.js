@@ -838,7 +838,7 @@ export default function AccountSetupQuestio(props) {
                     placeholder="0"
                     keyboardType="number-pad"
                     style={styles.numInputField}
-                    placeholderTextColor="#000"
+                    placeholderTextColor="#000000"
                   />
                 )}
                 name="currentWeightInput"
@@ -884,7 +884,7 @@ export default function AccountSetupQuestio(props) {
                     placeholder="0"
                     keyboardType="number-pad"
                     style={styles.numInputField}
-                    placeholderTextColor="#000"
+                    placeholderTextColor="#000000"
                   />
                 )}
                 name="goalWeightInput"
@@ -927,7 +927,7 @@ export default function AccountSetupQuestio(props) {
                     onBlur={onBlur}
                     placeholder="0"
                     keyboardType="number-pad"
-                    placeholderTextColor="#000"
+                    placeholderTextColor="#000000"
                     style={styles.numInputField}
                   />
                 )}
@@ -972,7 +972,7 @@ export default function AccountSetupQuestio(props) {
                     placeholder="0"
                     keyboardType="number-pad"
                     style={styles.numInputField}
-                    placeholderTextColor="#000"
+                    placeholderTextColor="#000000"
                   />
                 )}
                 name="calorieInput"
@@ -1017,7 +1017,7 @@ export default function AccountSetupQuestio(props) {
                       placeholder="0"
                       keyboardType="number-pad"
                       style={styles.numInputField}
-                      placeholderTextColor="#000"
+                      placeholderTextColor="#000000"
                     />
                   )}
                   name="heightInput"
@@ -1033,7 +1033,7 @@ export default function AccountSetupQuestio(props) {
                   placeholder="0"
                   keyboardType="number-pad"
                   style={styles.numInputField}
-                  placeholderTextColor="#000"
+                  placeholderTextColor="#000000"
                 />
               </View>
               <View>
@@ -1264,7 +1264,7 @@ export default function AccountSetupQuestio(props) {
                     onBlur={onBlur}
                     placeholder="0"
                     keyboardType="number-pad"
-                    placeholderTextColor="#000"
+                    placeholderTextColor="#000000"
                     style={styles.numInputField}
                   />
                 )}
@@ -1321,7 +1321,7 @@ export default function AccountSetupQuestio(props) {
                     onBlur={onBlur}
                     placeholder="0"
                     keyboardType="number-pad"
-                    placeholderTextColor="#000"
+                    placeholderTextColor="#000000"
                     style={styles.numInputField}
                   />
                 )}
@@ -1379,7 +1379,7 @@ export default function AccountSetupQuestio(props) {
                     placeholder="0"
                     keyboardType="number-pad"
                     style={styles.numInputField}
-                    placeholderTextColor="#000"
+                    placeholderTextColor="#000000"
                   />
                 )}
                 name="powerCleanInput"
@@ -1436,7 +1436,7 @@ export default function AccountSetupQuestio(props) {
                     placeholder="0"
                     keyboardType="number-pad"
                     style={styles.numInputField}
-                    placeholderTextColor="#000"
+                    placeholderTextColor="#000000"
                   />
                 )}
                 name="deadLiftInput"
@@ -1530,6 +1530,8 @@ const styles = StyleSheet.create({
     fontSize: 80,
     marginHorizontal: 10,
     textAlign: "center",
+    height: 30,
+    paddingVertical: 0
   },
   numberBox: {
     flexDirection: "row",

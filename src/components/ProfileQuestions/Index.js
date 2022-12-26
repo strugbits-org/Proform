@@ -105,7 +105,7 @@ export default function ProfileQuestions(props) {
                 onBlur={onBlur}
                 style={styles.inputField}
                 placeholder="Type Here"
-                placeholderTextColor="#000"
+                placeholderTextColor="#000000"
               />
             )}
             name="fullNames"
@@ -144,7 +144,7 @@ export default function ProfileQuestions(props) {
                 onBlur={onBlur}
                 style={styles.inputField}
                 placeholder="Type Here"
-                placeholderTextColor="#000"
+                placeholderTextColor="#000000"
               />
             )}
             name="username"
@@ -228,6 +228,8 @@ const styles = StyleSheet.create({
     borderBottomColor: "#000",
     width: "80%",
     marginVertical: 20,
+    height: 30,
+    paddingVertical: 0
   },
   subHeading: {
     color: "#000",

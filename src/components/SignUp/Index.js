@@ -85,7 +85,7 @@ export default function SignUp(props) {
               onChangeText={onChange}
               value={value}
               placeholder="Account Email"
-              placeholderTextColor="#000"
+              placeholderTextColor="#000000"
               onBlur={onBlur}
               style={styles.inputField}
             />
@@ -107,7 +107,7 @@ export default function SignUp(props) {
               value={value}
               onBlur={onBlur}
               placeholder="Password"
-              placeholderTextColor="#000"
+              placeholderTextColor="#000000"
               secureTextEntry={true}
               style={styles.inputField}
             />
@@ -155,7 +155,7 @@ export default function SignUp(props) {
               onChangeText={onChange}
               value={value}
               placeholder="Sign Up Code (Optional)"
-              placeholderTextColor="#000"
+              placeholderTextColor="#000000"
               onBlur={onBlur}
               style={styles.inputField}
             />
@@ -236,6 +236,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     lineHeight: 2,
     width: "100%",
+    height: 30,
+    paddingVertical: 0
   },
   errMsg: {
     color: "red",

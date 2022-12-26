@@ -53,7 +53,7 @@ export default function ForgotPassword(props) {
             placeholder="Email"
             onBlur={onBlur}
             style={styles.inputField}
-            placeholderTextColor="#000"
+            placeholderTextColor="#000000"
           />
         )}
         name="email"
@@ -90,6 +90,8 @@ const styles = StyleSheet.create({
     marginTop: 30,
     lineHeight: 2,
     width: "80%",
+    height: 30,
+    paddingVertical: 0
   },
   subHeading: {
     flexDirection: "row",
