@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Image, Text } from "react-native";
 import DashboardUser from "../components/DashboardUser";
 import Header from "../components/Header";
 import { GetFeeds } from "../Api/Dashboard";
@@ -40,7 +40,10 @@ export default function Dashboard(props) {
               keyExtractor={(item) => item.id}
             />
           ) : (
-            <Image source={require("../../../assets/images/loading.gif")} />
+            <View style={styles.imgBox}>
+              <Image style={styles.img} source={require("../../assets/loader.gif")} />
+              <Text style={styles.loadingText}> Loading feeds... </Text>
+            </View>
           )}
         </View>
       </View>
@@ -60,4 +63,18 @@ const styles = StyleSheet.create({
   items: {
     marginVertical: 20,
   },
+  imgBox: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  img: {
+    width: 60,
+    height: 60,
+  },
+  loadingText: {
+    fontSize: 16,
+    color: "#000",
+  }
 });

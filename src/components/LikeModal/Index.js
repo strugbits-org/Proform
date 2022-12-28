@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Image, Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import { Icon } from "@rneui/themed";
 import Btn from "../Button";
+import { AuthContext } from "../../context/AuthContext";
 
 const LikeModal = ({ navigation }) => {
+  const { userToken } = useContext(AuthContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [likeIcon, setLikeIcon] = useState("heart-o");
   const [like, setLike] = useState(false);
@@ -57,12 +59,12 @@ const LikeModal = ({ navigation }) => {
         // style={[styles.button, styles.buttonOpen]}
         onPress={() => {
           if (like) {
-            // setLikeIcon("heart-o");
+            userToken && setLikeIcon("heart-o");
             setLike(false);
           } else {
             setLike(true);
-            // setLikeIcon("heart");
-            setModalVisible(true);
+            userToken && setLikeIcon("heart");
+            !userToken && setModalVisible(true);
           }
         }}
       >
