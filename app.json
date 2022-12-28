@@ -20,7 +20,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.proformapp.proformapp",
-      "buildNumber": "1.0.3"
+      "buildNumber": "1.0.4"
     },
     "android": {
       "adaptiveIcon": {
